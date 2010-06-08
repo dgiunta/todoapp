@@ -5,56 +5,26 @@ ROOT = File.expand_path File.dirname(__FILE__) unless defined?(ROOT)
 require 'rubygems'
 require 'bundler'
 Bundler.require :default, ( ENV['RACK_ENV'].to_sym || :development )
+require 'mustache/sinatra'
 
 
 
-# 
-# Configuration
-#
+class TodoApp < Sinatra::Base
+  
+  register Mustache::Sinatra  
+  require ROOT + '/views/layout'
 
-configure do
-  set :root, ROOT
-  enable :inline_templates
+  configure do
+    set :root, ROOT
+    set :mustache, { :templates => 'templates/', :views => 'views/' }
+  end
+  
+  # 
+  # Routes
+  # 
+
+  get '/' do
+    mustache :index
+  end
+
 end
-
-
-
-# 
-# Helpers
-# 
-
-helpers do
-end
-
-
-
-# 
-# Routes
-# 
-
-get '/' do
-  erb :index
-end
-
-
-
-__END__
-
-
-
-@@ index
-
-<!DOCTYPE html>
-
-<html>
-
-  <head>
-    <title>To-Do App</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-  </head>
-
-  <body>
-    Hello from the To-Do App!
-  </body>
-
-</html>

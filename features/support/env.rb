@@ -6,7 +6,7 @@ require 'spec'
 
 World do
   
-  Capybara.app = Sinatra::Application
+  Capybara.app = TodoApp
   Capybara.default_selector = :css
   
   include Capybara

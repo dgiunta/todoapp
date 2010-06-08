@@ -6,4 +6,7 @@ STDOUT.reopen log
 STDERR.reopen log
 
 require File.dirname(__FILE__) + '/app'
-run Sinatra::Application
+
+use Rack::ShowExceptions
+
+run TodoApp.new
