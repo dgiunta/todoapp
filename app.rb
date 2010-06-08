@@ -7,22 +7,20 @@ require 'bundler'
 Bundler.require :default, ( ENV['RACK_ENV'].to_sym || :development )
 require 'mustache/sinatra'
 
+# Make sure that layout view gets loaded before others
+require ROOT + '/views/layout'
 
 
-class TodoApp < Sinatra::Base
+
+class WhatsNext::App < Sinatra::Base
   
   register Mustache::Sinatra  
-  require ROOT + '/views/layout'
 
   configure do
     set :root, ROOT
-    set :mustache, { :templates => 'templates/', :views => 'views/' }
+    set :mustache, { :namespace => WhatsNext, :templates => 'templates/', :views => 'views/' }
   end
   
-  # 
-  # Routes
-  # 
-
   get '/' do
     mustache :index
   end

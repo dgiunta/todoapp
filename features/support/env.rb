@@ -6,7 +6,7 @@ require 'spec'
 
 World do
   
-  Capybara.app = TodoApp
+  Capybara.app = WhatsNext::App
   Capybara.default_selector = :css
   
   include Capybara

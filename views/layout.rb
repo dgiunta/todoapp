@@ -1,9 +1,9 @@
-class TodoApp
+class WhatsNext
   module Views
     class Layout < Mustache
       
       def title
-        'To-Do App'
+        'What&rsquo;s Next?'
       end
       
     end

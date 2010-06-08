@@ -13,7 +13,7 @@ Feature: HTML
 
   Scenario: Default page title
     Given I am on the home page
-    Then I should see "To-Do App" within "title"
+    Then I should see "What’s Next?" within "title"
   
   
   

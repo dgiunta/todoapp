@@ -9,4 +9,4 @@ require File.dirname(__FILE__) + '/app'
 
 use Rack::ShowExceptions
 
-run TodoApp.new
+run WhatsNext::App.new

@@ -1,4 +1,4 @@
-class TodoApp
+class WhatsNext
   module Views
     class Index < Layout
       
