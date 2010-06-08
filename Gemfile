@@ -7,9 +7,9 @@ gem 'mustache'
 gem 'sinatra'
 
 group :test do
+  gem 'capybara'
   gem 'cucumber'
   gem 'faker'
   gem 'machinist'
   gem 'rspec', :require => 'spec'
-  gem 'webrat'
 end
