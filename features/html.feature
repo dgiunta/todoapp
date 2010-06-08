@@ -5,7 +5,7 @@ Feature: HTML
 
   Scenario: Required HTML tags
     Given I am on the home page
-    Then I should see the following tags:
+    Then I should see the following elements:
       | html  |
       | head  |
       | title |
@@ -13,7 +13,7 @@ Feature: HTML
 
   Scenario: Default page title
     Given I am on the home page
-    Then the title should be "To-Do App"
+    Then I should see "To-Do App" within "title"
   
   
   
