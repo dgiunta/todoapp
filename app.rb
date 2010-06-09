@@ -6,7 +6,7 @@ require 'rubygems'
 require 'bundler'
 Bundler.require :default, ( ENV['RACK_ENV'].to_sym || :development )
 
-# Require everything in the lib
+# Require everything in lib
 Dir[ROOT + '/lib/**/*.rb'].each { |file| require file }
 
 # Require stuff needed for Mustache
@@ -14,19 +14,20 @@ require 'mustache/sinatra'
 require ROOT + '/views/layout'
 
 
-
-class WhatsNext::App < Sinatra::Base
+module WhatsNext
+  class App < Sinatra::Base
   
-  register Mustache::Sinatra, Sinatra::MongoConfig 
+    register Mustache::Sinatra, Sinatra::MongoConfig 
 
-  configure do
-    set :mongo_db, 'whats_next'
-    set :mustache, :namespace => WhatsNext, :templates => 'templates/', :views => 'views/'
-    set :root, ROOT
-  end
+    configure do
+      set :mongo_db, 'whats_next'
+      set :mustache, :namespace => WhatsNext, :templates => 'templates/', :views => 'views/'
+      set :root, ROOT
+    end
   
-  get '/' do
-    mustache :index
-  end
+    get '/' do
+      mustache :index
+    end
 
+  end
 end

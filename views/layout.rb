@@ -1,4 +1,4 @@
-class WhatsNext
+module WhatsNext
   module Views
     class Layout < Mustache
       
