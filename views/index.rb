@@ -2,9 +2,9 @@ class WhatsNext
   module Views
     class Index < Layout
       
-      def test
-        'Test!'
-      end
+      # def test
+      #   'Test!'
+      # end
       
     end
   end

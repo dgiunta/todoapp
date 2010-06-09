@@ -1,24 +1,28 @@
-# Note the application's root directory for convenience
+# Note the application’s root directory for convenience
 ROOT = File.expand_path File.dirname(__FILE__) unless defined?(ROOT)
 
 # Require bundled gems
 require 'rubygems'
 require 'bundler'
 Bundler.require :default, ( ENV['RACK_ENV'].to_sym || :development )
-require 'mustache/sinatra'
 
-# Make sure that layout view gets loaded before others
+# Require everything in the lib
+Dir[ROOT + '/lib/**/*.rb'].each { |file| require file }
+
+# Require stuff needed for Mustache
+require 'mustache/sinatra'
 require ROOT + '/views/layout'
 
 
 
 class WhatsNext::App < Sinatra::Base
   
-  register Mustache::Sinatra  
+  register Mustache::Sinatra, Sinatra::MongoConfig 
 
   configure do
+    set :mongo_db, 'whats_next'
+    set :mustache, :namespace => WhatsNext, :templates => 'templates/', :views => 'views/'
     set :root, ROOT
-    set :mustache, { :namespace => WhatsNext, :templates => 'templates/', :views => 'views/' }
   end
   
   get '/' do
