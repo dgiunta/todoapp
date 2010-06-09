@@ -1,9 +1,47 @@
-def puts_title title
+begin
+  require 'growl'
+rescue LoadError
+end
+
+def growl_notify title, passed
+  return unless defined?(Growl) and Growl.installed?
+  
+  messages = {}
+  
+  messages[true] = [
+    'Great job!',
+    'Greeaat jeeooorrrb, Am Scray!',
+    'Gimme five!',
+    'Nice work!',
+    'Now we’re talkin’!',
+    'That’s what I’m talkin’ about!' ]
+  
+  messages[false] = [
+    'Oh noes!',
+    'Well that sucks.',
+    'Again? Really!?',
+    '“Woop!” says DHH.' ]
+  
+  message = messages[passed].sort_by { rand(321) }.first
+  title   = "#{ title } #{ passed ? 'Passed' : 'Failed' }"
+  image   = passed ? 'green' : 'red'
+  
+  Growl.notify message, :title => title, :icon => ( File.dirname(__FILE__) + "/features/support/images/#{ image }.png" )
+end
+
+def run_test title, command
   puts "\n\n"
   puts "===================================================="
   puts title  
   puts "===================================================="
   puts "\n"
+  
+  if system command
+    growl_notify title, true
+  else
+    growl_notify title, false
+    exit
+  end
 end
 
 
@@ -12,8 +50,6 @@ task :default => :test
 
 desc 'Run the entire test suite'
 task :test do
-  system 'clear'
-  
   %w[ cucumber rspec ].each do |task|
     Rake::Task["test:#{ task }"].invoke
   end
@@ -32,20 +68,18 @@ namespace :test do
       puts "Waiting for your changes..."
       puts "Ctrl+C to exit"
       puts "\n"
-      system %|rbind to app.rb features/ lib/ spec/ templates/ views/ -e 'system "rake test"'|
+      system %|rbind to app.rb features/ lib/ spec/ templates/ views/ -e 'system "clear && rake test"'|
     end
   end
   
   desc 'Run the Cucumber specs' 
   task :cucumber do
-    puts_title 'Cucumber'
-    exit unless system 'cucumber -f progress features/'
+    run_test 'Cucumber', 'cucumber -f progress features/'
   end
   
   desc 'Run the RSpec specs' 
   task :rspec do
-    puts_title 'RSpec'
-    exit unless system 'spec spec/'
+    run_test 'RSpec', 'spec spec/'
   end
   
 end
