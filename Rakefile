@@ -6,21 +6,22 @@ end
 def growl_notify title, passed
   return unless defined?(Growl) and Growl.installed?
   
-  messages = {}
-  
-  messages[true] = [
-    'Great job!',
-    'Greeaat jeeooorrrb, Am Scray!',
-    'Gimme five!',
-    'Nice work!',
-    'Now we’re talkin’!',
-    'That’s what I’m talkin’ about!' ]
-  
-  messages[false] = [
-    'Oh noes!',
-    'Well that sucks.',
-    'Again? Really!?',
-    '“Woop!” says DHH.' ]
+  messages = {
+    true => [
+      'Great job!',
+      'Greeaat jeeooorrrb, Am Scray!',
+      'Gimme five!',
+      'Nice work!',
+      'Hell yes!',
+      'That’s what I’m talkin’ about!' 
+    ],
+    false => [
+      'Oh noes!',
+      'Well that sucks.',
+      'Again? Really!?',
+      '“Woop!” says DHH.' 
+    ]
+  }
   
   message = messages[passed].sort_by { rand(321) }.first
   title   = "#{ title } #{ passed ? 'Passed' : 'Failed' }"
