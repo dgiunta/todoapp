@@ -12,11 +12,23 @@ task :default => :test
 
 desc 'Run the entire test suite'
 task :test do
+  %w[ cucumber rspec ].each do |task|
+    Rake::Task["test:#{ task }"].invoke
+  end
+end
 
-  puts_title 'Cucumber'
-  exit unless system 'cucumber -f progress features/'
+namespace :test do
   
-  puts_title 'RSpec'
-  system 'spec spec/'
-
+  desc 'Run the Cucumber specs' 
+  task :cucumber do
+    puts_title 'Cucumber'
+    exit unless system 'cucumber -f progress features/'
+  end
+  
+  desc 'Run the RSpec specs' 
+  task :rspec do
+    puts_title 'RSpec'
+    exit unless system 'spec spec/'
+  end
+  
 end
