@@ -12,5 +12,12 @@ World do
   include Capybara
   include Spec::Expectations
   include Spec::Matchers
+    
+end
+
+Before do
+
+  # Clean up the test database
+  WhatsNext::Todo.collection.remove
   
 end

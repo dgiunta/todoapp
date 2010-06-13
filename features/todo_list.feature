@@ -9,9 +9,8 @@ Feature: To-Do List
       | Wash the dishes        |
       | Take a shower          |
     When I go to the todos page
-    Then I should see the following:
-      | Clean the kitty litter |
-      | Wash the dishes        |
-      | Take a shower          |
-  
+    Then I should see the following content and elements:
+      | Clean the kitty litter | ul.todos li:nth-child(1) |
+      | Wash the dishes        | ul.todos li:nth-child(2) |
+      | Take a shower          | ul.todos li:nth-child(3) |
   
