@@ -1,5 +1,4 @@
 Given /^a "([^\"]*)" todo$/ do |title|
-  pending
   WhatsNext::Todo.create :title => title
 end
 
