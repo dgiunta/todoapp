@@ -26,7 +26,9 @@ module WhatsNext
     end
     
     def self.create attributes = {}
-      new(attributes).save
+      todo = new(attributes)
+      todo.save
+      todo
     end
     
   end

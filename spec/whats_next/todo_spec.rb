@@ -57,7 +57,7 @@ describe WhatsNext::Todo do
       attributes = { :title => 'The Title' }
       WhatsNext::Todo.should_receive(:new).with(attributes).and_return todo
       
-      WhatsNext::Todo.create(attributes).should equal(true)
+      WhatsNext::Todo.create(attributes).should equal(todo)
     end
   
   end
