@@ -3,6 +3,23 @@ begin
 rescue LoadError
 end
 
+def auto_task task, paths
+  begin
+    require 'bind'
+  rescue LoadError
+    puts "\n\n`gem install bind` to run suite automatically"
+  else
+    system %|clear && rake #{ task }|
+    puts "\n\n"
+    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts "\n"
+    puts "Waiting for your changes..."
+    puts "Ctrl+C to exit"
+    puts "\n"
+    system %|rbind to #{ paths } -e 'system "clear && rake #{ task }"'|
+  end
+end
+
 def growl_notify title, passed
   return unless defined?(Growl) and Growl.installed?
   
@@ -34,7 +51,7 @@ def run_test title, command
   puts "\n\n"
   puts "===================================================="
   puts title  
-  puts "===================================================="
+  puts "===================================================="  
   puts "\n"
   
   if system command
@@ -47,40 +64,41 @@ end
 
 
 
-task :default => :test
+task :default => :suite
+desc 'Run the Cucumber features' 
+task :cucumber do
+  run_test 'Cucumber', 'cucumber -f progress features/'
+end
+
+namespace :cucumber do
+  desc 'Automatically run Cucumber features as files change'
+  task :auto do
+    auto_task :cucumber, 'app.rb features/ lib/ templates/ views/'
+  end
+end
+
+desc 'Run the RSpec specs' 
+task :spec do
+  run_test 'RSpec', 'spec spec/'
+end
+
+namespace :spec do
+  desc 'Automatically run RSpec specs as files change'
+  task :auto do
+    auto_task :spec, 'app.rb lib/ spec/ templates/ views/'
+  end
+end
 
 desc 'Run the entire test suite'
-task :test do
-  %w[ cucumber rspec ].each do |task|
-    Rake::Task["test:#{ task }"].invoke
+task :suite do
+  [ :cucumber, :spec ].each { |task| Rake::Task[task].invoke }
+end
+
+namespace :suite do
+  desc 'Automatically run entire test suite as files change'
+  task :auto do
+    auto_task :suite, 'app.rb features/ lib/ spec/ templates/ views/'
   end
 end
 
-namespace :test do
-  
-  desc 'Automatically run entire suite as files change'
-  task :auto do
-    begin
-      require 'bind'
-    rescue LoadError
-      puts "\n\n`gem install bind` to run suite automatically"
-    else
-      puts "\n\n"
-      puts "Waiting for your changes..."
-      puts "Ctrl+C to exit"
-      puts "\n"
-      system %|rbind to app.rb features/ lib/ spec/ templates/ views/ -e 'system "clear && rake test"'|
-    end
-  end
-  
-  desc 'Run the Cucumber specs' 
-  task :cucumber do
-    run_test 'Cucumber', 'cucumber -f progress features/'
-  end
-  
-  desc 'Run the RSpec specs' 
-  task :rspec do
-    run_test 'RSpec', 'spec spec/'
-  end
-  
-end
+
