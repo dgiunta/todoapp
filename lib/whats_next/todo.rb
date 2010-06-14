@@ -2,10 +2,11 @@ module WhatsNext
   class Todo
     
     attr_accessor :title
-    attr_reader :id
+    attr_reader :id, :status
     
     def initialize attributes = {}
-      @title = attributes[:title]
+      @title  = attributes[:title]  || attributes['title']
+      @status = attributes[:status] || attributes['status'] || :pending
     end
     
     def save
@@ -18,7 +19,7 @@ module WhatsNext
     end
     
     def self.all
-      self.collection.find.to_a
+      self.collection.find.inject([]) { |arr, attributes| arr << self.new(attributes) }
     end
     
     def self.collection
@@ -29,6 +30,10 @@ module WhatsNext
       todo = new(attributes)
       todo.save
       todo
+    end
+    
+    def status= status
+      @status = status
     end
     
   end

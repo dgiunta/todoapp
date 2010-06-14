@@ -26,9 +26,17 @@ describe WhatsNext::Todo do
       todo.title.should == 'I am the title'
     end
   
+    it "has an accessible #status attribute" do
+      todo = WhatsNext::Todo.new
+      todo.status.should == :pending
+      todo.status = :finished
+      todo.status.should == :finished
+    end
+    
     it "can mass-assign attributes during initialization" do
-      todo = WhatsNext::Todo.new :title => 'A different title'
+      todo = WhatsNext::Todo.new :title => 'A different title', :status => :finished
       todo.title.should == 'A different title'
+      todo.status.should == :finished
     end
     
     it "can NOT mass-assign the #id attribute during initialization" do
@@ -64,11 +72,23 @@ describe WhatsNext::Todo do
   
   context "when finding existing todos" do
     
+    before :each do
+      @results = [
+        { '_id' => '1a', 'title' => '1st Title' },
+        { '_id' => '2b', 'title' => '2nd Title' },
+        { '_id' => '3c', 'title' => '3rd Title' }
+      ]
+    end
+    
     it "finds all" do
-      cursor = mock :cursor
-      WhatsNext::Todo.collection.should_receive(:find).and_return cursor
-      cursor.should_receive(:to_a).and_return [ 1, 2, 3 ]
-      WhatsNext::Todo.all.should == [ 1, 2, 3 ]
+      WhatsNext::Todo.collection.should_receive(:find).and_return @results
+      todos = WhatsNext::Todo.all
+
+      todos.size.should == 3
+      todos.each { |todo| todo.should be_instance_of(WhatsNext::Todo) }
+      todos[0].title.should == '1st Title'
+      todos[1].title.should == '2nd Title'
+      todos[2].title.should == '3rd Title'
     end
     
   end
