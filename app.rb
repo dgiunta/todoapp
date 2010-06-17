@@ -30,7 +30,8 @@ module WhatsNext
     end
   
     get '/' do
-      mustache :index, :locals => { :todos => WhatsNext::Todo.all }
+      @todos = WhatsNext::Todo.all
+      mustache :index
     end
 
   end

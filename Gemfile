@@ -9,9 +9,9 @@ gem 'sinatra'
 gem 'sinatra-mongoid', :require => 'sinatra/mongoid'
 
 group :test do
-  gem 'capybara'
-  gem 'cucumber'
-  gem 'faker'
-  gem 'machinist'
-  gem 'rspec', :require => 'spec'
+  gem 'capybara',  :require => false
+  gem 'cucumber',  :require => false
+  gem 'faker',     :require => false
+  gem 'machinist', :require => false
+  gem 'rspec',     :require => false
 end

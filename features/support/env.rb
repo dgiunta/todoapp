@@ -18,6 +18,6 @@ end
 Before do
 
   # Clean up the test database
-  WhatsNext::Todo.collection.remove
+  # WhatsNext::Todo.collection.remove
   
 end
