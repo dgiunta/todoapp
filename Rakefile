@@ -67,7 +67,7 @@ end
 task :default => :suite
 desc 'Run the Cucumber features' 
 task :cucumber do
-  run_test 'Cucumber', 'cucumber -f progress features/'
+  run_test 'Cucumber', 'bundle exec cucumber -f progress features/'
 end
 
 namespace :cucumber do
@@ -79,7 +79,7 @@ end
 
 desc 'Run the RSpec specs' 
 task :spec do
-  run_test 'RSpec', 'spec spec/'
+  run_test 'RSpec', 'bundle exec spec spec/'
 end
 
 namespace :spec do
