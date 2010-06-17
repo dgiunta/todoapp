@@ -26,14 +26,7 @@ module WhatsNext
                       :templates => 'templates/', 
                       :views     => 'views/'
       
-      set :mongo,     :db        => 'whats_next',
-                      :host      => 'localhost',
-                      :password  => nil,
-                      :port      => Mongo::Connection::DEFAULT_PORT,
-                      :user      => nil
-      
-      WhatsNext.database = Mongo::Connection.new( mongo[:host], mongo[:port] ).db( mongo[:db] + environment.to_s )
-      WhatsNext.database.authenticate mongo[:user], mongo[:password] if mongo[:user] and mongo[:password]
+      set :mongo_db, "whats_next_#{ environment }"  
     end
   
     get '/' do
