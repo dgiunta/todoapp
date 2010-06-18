@@ -7,7 +7,8 @@ module WhatsNext
     field :title
     
     def status
-      read_attribute(:status).to_sym
+      str = read_attribute :status
+      str.blank? ? nil : str.to_sym
     end
         
   end

@@ -26,7 +26,14 @@ module WhatsNext
                       :templates => 'templates/', 
                       :views     => 'views/'
       
-      set :mongo_db, "whats_next_#{ environment }"  
+      set :mongo_host,     ENV['MONGO_HOST'] || 'localhost'
+      set :mongo_db,       ENV['MONGO_DB']   || "whats_next_#{ environment }"
+      set :mongo_port,     ENV['MONGO_PORT'] || Mongo::Connection::DEFAULT_PORT
+      set :mongo_user,     ENV['MONGO_USER']
+      set :mongo_password, ENV['MONGO_PASSWORD']
+
+      Mongoid.database = Mongo::Connection.new(mongo_host, mongo_port).db mongo_db
+      Mongoid.database.authenticate mongo_user, mongo_password if mongo_user
     end
   
     get '/' do
