@@ -5,9 +5,9 @@ Feature: To-Do List
 
   Scenario: Viewing the list of todos
     Given the following todos:
-      | Clean the kitty litter | finished |
-      | Wash the dishes        | pending  |
-      | Take a shower          | pending  |
+      | Clean the kitty litter | completed |
+      | Wash the dishes        | pending   |
+      | Take a shower          | pending   |
     When I go to the todos page
     Then I should see the following content and elements:
       | Clean the kitty litter | ul.todos li:nth-child(1) |
@@ -16,6 +16,7 @@ Feature: To-Do List
     And I should see the following elements:
       | ul.todos li:nth-child(1) input[checked]         |
       | ul.todos li:nth-child(2) input:not( [checked] ) |
-      | ul.todos li:nth-child(3) input:not( [checked] ) |
+      | ul.todos li:nth-child(3) input:not( [checked] ) |      
+  
   
   

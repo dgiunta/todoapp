@@ -11,7 +11,9 @@ module WhatsNext
     end
     
     def status= status
-      return unless [ :pending, :finished ].include? status
+      return if status.blank?
+      status = status.to_sym
+      return unless [ :pending, :completed ].include? status
       write_attribute :status, status
     end
         

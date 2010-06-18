@@ -4,7 +4,7 @@ module WhatsNext
       
       module TodoInstanceMethods        
         def checked_attribute
-          status == :finished ? 'checked="checked"' : ''
+          status == :completed ? 'checked="checked"' : ''
         end
       end
       

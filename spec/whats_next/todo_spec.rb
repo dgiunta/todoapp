@@ -19,8 +19,14 @@ describe WhatsNext::Todo do
     it "has an accessible #status attribute" do
       todo = WhatsNext::Todo.new
       todo.status.should == :pending
-      todo.status = :finished
-      todo.status.should == :finished
+      todo.status = :completed
+      todo.status.should == :completed
+    end
+    
+    it "accepts strings when setting the #status attribute" do
+      todo = WhatsNext::Todo.new
+      todo.status = 'completed'
+      todo.status.should == :completed
     end
     
     it "only allows certain statuses" do
@@ -33,9 +39,9 @@ describe WhatsNext::Todo do
     end
     
     it "can mass-assign attributes during initialization" do
-      todo = WhatsNext::Todo.new :title => 'A different title', :status => :finished
+      todo = WhatsNext::Todo.new :title => 'A different title', :status => :completed
       todo.title.should == 'A different title'
-      todo.status.should == :finished
+      todo.status.should == :completed
     end
       
   end
