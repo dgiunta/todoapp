@@ -3,12 +3,16 @@ module WhatsNext
     
     include Mongoid::Document
     
-    field :status, :default => 'pending'
+    field :status, :default => :pending
     field :title
     
     def status
-      str = read_attribute :status
-      str.blank? ? nil : str.to_sym
+      read_attribute(:status).to_sym
+    end
+    
+    def status= status
+      return unless [ :pending, :finished ].include? status
+      write_attribute :status, status
     end
         
   end

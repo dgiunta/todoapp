@@ -23,6 +23,15 @@ describe WhatsNext::Todo do
       todo.status.should == :finished
     end
     
+    it "only allows certain statuses" do
+      todo = WhatsNext::Todo.new
+      
+      [ :test, :complete, 'string', '', 123, [], {} ].each do |value|
+        todo.status = value
+        todo.status.should == :pending        
+      end
+    end
+    
     it "can mass-assign attributes during initialization" do
       todo = WhatsNext::Todo.new :title => 'A different title', :status => :finished
       todo.title.should == 'A different title'
