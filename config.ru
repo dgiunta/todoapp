@@ -7,6 +7,7 @@ STDERR.reopen log
 
 require File.dirname(__FILE__) + '/app'
 
+use Rack::MethodOverride
 use Rack::ShowExceptions
 
 run WhatsNext::App.new
