@@ -6,6 +6,7 @@ gem 'mongo'
 gem 'mongoid', '2.0.0.beta7'
 gem 'mustache'
 gem 'sinatra'
+gem 'sinatra-mongoid-config'
 
 group :test do
   gem 'capybara',  :require => false
