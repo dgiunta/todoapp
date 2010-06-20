@@ -37,8 +37,12 @@ module WhatsNext
     end
   
     get '/' do
-      @todos = WhatsNext::Todo.all
       mustache :index
+    end
+    
+    get '/todos' do
+      @todos = WhatsNext::Todo.all
+      mustache :todos_index
     end
 
   end
