@@ -1,3 +1,6 @@
+*
+  -webkit-box-sizing: border-box
+
 html
   height: 100%
 
@@ -7,9 +10,10 @@ body
   font:
     family: $ff
     size: $fs
+  -webkit-font-smoothing: antialiased
   line-height: $lh
   padding-bottom: $lh * 3
-  -webkit-text-stroke: 1px transparent
+  width: 320px
 
 a
   color: $c-a
@@ -170,3 +174,36 @@ blockquote
       position: absolute
       top: 0
 
+section
+  padding-top: $h-header
+  position: relative
+  
+  header
+    @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
+    background-color: $blue-muted
+    border:
+      bottom: 1px solid #2d3642
+      top: 1px solid #ccd5df
+    color: white
+    height: $h-header
+    left: 0
+    padding: $lh * .5
+    overflow: hidden
+    position: fixed
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .5)
+    top: 0
+    width: 100%
+    z-index: 10
+    
+    h1
+      font-size: $lh
+      line-height: 1
+      margin: 0 auto
+      overflow: hidden
+      text:
+        align: center
+        overflow: ellipsis
+      width: 200px
+      white-space: nowrap
+      
+      
