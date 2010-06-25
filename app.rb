@@ -33,6 +33,11 @@ module WhatsNext
       mustache :todos_index
     end
     
+    get '/stylesheets/:name.css' do
+      content_type 'text/css', :charset => 'utf-8'
+      sass :"stylesheets/#{ params[:name] }"
+    end
+
     if environment == :development
       get '/design/todos' do
         mustache :design_todos_index

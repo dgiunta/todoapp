@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'bson_ext'
 gem 'json'
+gem 'haml'
 gem 'mongo'
 gem 'mongoid', '2.0.0.beta7'
 gem 'mustache'
