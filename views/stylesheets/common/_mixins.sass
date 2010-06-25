@@ -1,0 +1,143 @@
+$blue:       #06c
+$blue-light: $blue + #863
+$green:      #0c6
+$grey-dark:  #333
+$grey-light: #ccc
+$red:        #c00
+             
+$c:          $grey-dark
+$c-a:        $blue
+$ff:         'Lucida Grande', 'Segoe UI', arial, verdana, 'lucida sans unicode', tahoma, sans-serif
+$fs:         14px
+$fs-h1:      $fs * 2.5
+$fs-h2:      $fs * 2.0
+$fs-h3:      $fs * 1.25
+$fs-h4:      $fs * 1.0625
+$fs-small:   $fs * 0.875
+$lh:         20px
+$w:          $lh * 47
+
+
+
+@mixin background-gradient( $from-color, $to-color, $from-position: 0%, $to-position: 100% )
+  background-image: -moz-linear-gradient( top, $from-color $from-position, $to-color $to-position )
+  background-image: -webkit-gradient( linear, 0 $from-position, 0 $to-position, from( $from-color ), to( $to-color ) )
+
+
+
+@mixin border-radius( $radius: $lh * .25 )
+  -moz-border-radius: $radius
+  -webkit-border-radius: $radius
+  border-radius: $radius
+  
+@mixin border-radius-singular( $radius, $vertical, $horizontal )
+  -moz-border-radius-#{ $vertical }#{ $horizontal }: $radius
+  -webkit-border-#{ $vertical }-#{ $horizontal }-radius: $radius
+  border-#{ $vertical }-#{ $horizontal }-radius: $radius
+
+@mixin border-bottom-left-radius( !radius: $lh * .25 )
+  @include border-radius-singular( $radius, "bottom", "left" )
+
+@mixin border-bottom-right-radius( !radius: $lh * .25 )
+  @include border-radius-singular( $radius, "bottom", "right" )
+
+@mixin border-top-left-radius( !radius: $lh * .25 )
+  @include border-radius-singular( $radius, "top", "left" )
+
+@mixin border-top-right-radius( !radius: $lh * .25 )
+  @include border-radius-singular( $radius, "top", "right" )
+
+
+
+@mixin box-shadow( $value )
+  -moz-box-shadow: $value
+  -webkit-box-shadow: $value
+  box-shadow: $value
+
+
+
+@mixin button( $bg-color: $green - #111 )
+  @include background-gradient( rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) )
+  @include border-radius
+  background-color: $bg-color - #222
+  border: 0
+  color: white
+  cursor: pointer
+  display: block
+  padding: ($lh * .25) $lh
+  text:
+    decoration: none !important
+    shadow: 0 -1px 0 rgba(0, 0, 0, .3)
+
+  &:hover
+    background-color: $bg-color
+
+  &:active
+    @include background-gradient( rgba(255, 255, 255, .1), rgba(255, 255, 255, .2) )
+    padding:
+      bottom: $lh * .25 - 1
+      top: $lh * .25 + 1
+
+@mixin button-submit( $bg-color: $green - #111 )
+  @include button($bg-color)
+  @include border-radius($lh)
+  font-weight: bold
+  padding: ($lh * .5) $lh
+  
+  &:active
+    @include background-gradient( rgba(255, 255, 255, .1), rgba(255, 255, 255, .2) )
+    padding:
+      bottom: $lh * .5 - 1
+      top: $lh * .5 + 1
+
+
+
+@mixin clearfix
+  &:after
+    clear: both
+    content: "."
+    display: block
+    height: 0
+    visibility: hidden
+  * html &, * > html &
+    zoom: 1
+
+
+
+@mixin image-replacement( $src )
+  background:
+    image: url($src)
+    position: left top
+    repeat: no-repeat
+  display: inline-block
+  overflow: hidden
+  text-indent: -9999px
+
+
+
+@mixin reset
+  list-style: none
+  margin: 0
+  padding: 0
+  
+  li
+    margin: 0
+    padding: 0
+
+
+
+@mixin sub
+  bottom: -.3em
+  font-size: .75em
+  line-height: 1
+  margin: 0 .1em
+  position: relative
+  vertical-align: baseline
+  
+
+
+@mixin sup
+  @include sub
+  bottom: auto
+  top: -.3em
+  

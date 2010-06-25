@@ -1,0 +1,175 @@
+html
+  height: 100%
+
+body
+  @include background-gradient( rgba(255, 255, 255, .9), rgba(255, 255, 255, 0), 0%, 25% )
+  background:
+    attachment: fixed
+    color: $grey-light
+  color: $c
+  font:
+    family: $ff
+    size: $fs
+  line-height: $lh
+  padding-bottom: $lh * 3
+  -webkit-text-stroke: 1px transparent
+
+a
+  color: $c-a
+  text-decoration: none
+  
+  &:hover
+    text-decoration: underline
+  
+abbr, acronym
+  border-bottom: 1px dotted #888
+  cursor: help
+
+em
+  font-style: italic
+  margin-right: .1em
+  
+pre code
+  display: block
+  padding: ($lh / 2) $lh
+  
+sub
+  +sub
+
+sup
+  +sup
+  
+input, select, textarea
+  color: black
+  font:
+    family: $ff
+    size: $fs
+  margin: 0
+
+input[type="email"], input[type="password"], input[type="tel"], input[type="text"], textarea
+  @include border-radius(3px)
+  @include box-shadow( 0 1px 2px rgba(0, 0, 0, .2) inset )
+  border: 1px solid rgba(0, 0, 0, .3)
+    bottom-color: rgba(0, 0, 0, .2)
+    top-color: rgba(0, 0, 0, .5)  
+  outline: 0
+  padding: 0 ($lh * .25)
+  
+  &:focus
+    @include box-shadow( 0 2px 5px rgba(0, 0, 0, .2) )
+    border:
+      color: $blue - #111
+      top-color: $blue - #222
+
+input
+
+  &[type="email"], &[type="password"], &[type="tel"], &[type="text"]
+    line-height: $lh - 2
+    height: $lh - 2
+
+textarea
+  display: block
+  height: $lh * 9.5 - 2
+  line-height: $lh
+  padding:
+    bottom: ($lh * .25)
+    top: ($lh * .25)
+
+em, span, strong, sub, sup
+  line-height: 1
+
+blockquote, dl, fieldset, figure, form, h1, h2, h3, ol, p, pre, table, ul
+  margin-bottom: $lh
+
+h1, h2, h3, h4, h5, h6
+  font-weight: bold
+  
+  strong
+    text-transform: uppercase
+  
+  em
+    margin: 0
+
+h1
+  font-size: $fs-h1
+  line-height: $lh * 2
+
+h2
+  font:
+    size: $fs-h2
+    weight: normal
+  line-height: $lh * 2
+  
+  strong
+    text-transform: none
+
+h3
+  font-size: $fs-h3
+
+h4
+  font-size: $fs-h4
+
+h5, h6
+  font-style: italic
+
+table
+  width: 100%
+
+  th, td
+    line-height: $lh * .75
+    padding: $lh / 2
+    text-align: left
+    vertical-align: top
+
+  th
+    border-bottom: 1px solid $grey-light
+    vertical-align: bottom
+  
+  td
+    border-bottom: 1px solid $grey-light + #222
+
+  .numeric
+    text-align: right
+
+ul, ol
+  padding-left: $lh * 2
+
+  li
+    margin-bottom: $lh / 2
+    
+  ul, ol
+    margin-bottom: 0
+    
+    li
+      margin-top: $lh / 2
+      
+ul, ol ul
+  list-style-type: square
+
+ol, ul ol
+  list-style-type: decimal
+
+dl 
+  dt
+    font-weight: bold
+
+blockquote
+  font-size: $fs-small
+  margin: 0 $lh $lh
+  padding: $lh $lh ($lh * .5)
+  position: relative
+
+  dl, h1, h2, h3, ol, p, pre, table, ul
+    margin-bottom: $lh * .5
+  
+  cite
+    font-style: italic
+
+  p
+    position: relative
+        
+    span.ldquo
+      left: $fs / 2 * -1
+      position: absolute
+      top: 0
+
