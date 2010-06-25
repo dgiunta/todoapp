@@ -32,6 +32,16 @@ module WhatsNext
       @todos = WhatsNext::Todo.all
       mustache :todos_index
     end
+    
+    if environment == :development
+      get '/design/todos' do
+        mustache :design_todos_index
+      end
+      
+      get '/design/todos/:todo' do
+        mustache :design_todos_show
+      end
+    end
 
   end
 end

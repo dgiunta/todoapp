@@ -1,0 +1,32 @@
+<section>
+  
+  <header>
+    <h1>{{{ title }}}</h1>
+    <nav>
+      <ul>
+        <li class="filter">
+          <a href="#">Filter</a>
+        </li>
+        <li class="new">
+          <a href="#">New</a>
+        </li>
+      </ul>
+    </nav>    
+  </header>
+  
+  <ul id="todos">
+    
+    {{# todos }}
+      <li>
+        <label>
+          <input type="checkbox" {{{ checked_attribute }}}>
+          <a href="/design/todos/show">{{{ title }}}</a>
+        </label>
+      </li>
+    {{/ todos }}
+    
+  </ul>
+  
+</section>
+
+
