@@ -16,17 +16,12 @@ require ROOT + '/views/layout'
 
 module WhatsNext
   class App < Sinatra::Base
-  
+    
     register Mustache::Sinatra, Sinatra::MongoidConfig
 
     configure do
       set :root, ROOT
-      
-      set :mustache,  :namespace => WhatsNext, 
-                      :templates => 'templates/', 
-                      :views     => 'views/'
-      
-      set :mongo_db, "whats_next_#{ environment }"
+      set :mustache, :namespace => WhatsNext, :templates => 'templates/', :views => 'views/'
     end
   
     get '/' do
