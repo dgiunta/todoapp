@@ -13,7 +13,7 @@ body
   -webkit-font-smoothing: antialiased
   line-height: $lh
   padding-bottom: $lh * 3
-  width: 320px
+  //width: 320px
 
 a
   color: $c-a
@@ -190,7 +190,7 @@ section
     padding: $lh * .5
     overflow: hidden
     position: fixed
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .5)
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4)
     top: 0
     width: 100%
     z-index: 10
@@ -203,7 +203,40 @@ section
       text:
         align: center
         overflow: ellipsis
-      width: 200px
+      width: 190px
       white-space: nowrap
+    
+    ul
+      @include reset
       
+      li
+        @include border-radius
+        border: 1px solid ($blue-muted + #222)
+        position: absolute
+        right: 5px
+        top: 6px
+        
+        &:first-child
+          left: 5px
+          right: auto
+        
+        a
+          @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
+          @include border-radius
+          background-color: $blue-button
+          border: 1px solid rgba(0, 0, 0, .5)
+          color: white
+          display: block
+          font:
+            size: $fs-small
+            weight: bold
+          line-height: 27px
+          padding: 0 ($lh * .5)
+          
+          &:hover
+            background-color: $blue-button + #111
+            text-decoration: none
+          
+          &:active
+            background-color: $blue-button - #444
       
