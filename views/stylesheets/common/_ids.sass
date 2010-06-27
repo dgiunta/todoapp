@@ -1,6 +1,8 @@
-#todos
+#todos, #todo_check_and_title
   @include border-radius(0)
   margin: 0
+
+#todos 
   
   li
   
@@ -15,4 +17,22 @@
       &:active
         background-color: $blue
         color: white
+
+#todo_check_and_title
+  padding: $lh * .5
+    left: $lh * 1.5
+
+  input[type="checkbox"]
+    left: $lh * .5
+    position: absolute
+    top: $lh - 2
+  
+  textarea
+    font-weight: bold
+    height: $lh * 3
+    line-height: $lh * .75
+    width: 100%
+
+#todo_tags
+  font-weight: normal
     

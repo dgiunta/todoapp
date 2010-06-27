@@ -178,13 +178,6 @@ section
   padding-top: $h-header
   position: relative
   
-  section
-    @include border-radius
-    @include box-shadow( 0 0 5px rgba(0, 0, 0, .5) )
-    background-color: white
-    margin: $lh ($lh * .5) 
-    padding-top: 0
-  
   header
     @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
     background-color: $blue-muted
@@ -246,4 +239,29 @@ section
           
           &:active
             background-color: $blue-button - #444
+
+  section
+    @include border-radius
+    @include box-shadow( 0 0 5px rgba(0, 0, 0, .5) )
+    background-color: white
+    margin: ($lh * 2) ($lh * .5) $lh
+    padding-top: 0
+    position: relative
+    
+    header
+      background: transparent
+      border: 0
+      color: $blue-muted - #333
+      height: auto
+      padding: 0 ($lh * .5)
+      position: absolute
+      text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
+      top: -$lh * 1.25
       
+      h2
+        font:
+          size: $fs
+          weight: bold
+        line-height: $lh
+        margin: 0
+
