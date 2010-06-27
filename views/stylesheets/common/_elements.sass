@@ -178,6 +178,13 @@ section
   padding-top: $h-header
   position: relative
   
+  section
+    @include border-radius
+    @include box-shadow( 0 0 5px rgba(0, 0, 0, .5) )
+    background-color: white
+    margin: $lh ($lh * .5) 
+    padding-top: 0
+  
   header
     @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
     background-color: $blue-muted

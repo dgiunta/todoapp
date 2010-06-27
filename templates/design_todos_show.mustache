@@ -1,1 +1,34 @@
-Todo Show
+<section>
+  
+  <header>
+    <h1>Edit</h1>
+    <nav>
+      <ul>
+        <li class="back">
+          <a href="/design/todos">Back</a>
+        </li>
+      </ul>
+    </nav>    
+  </header>
+  
+  <section id="todo_check_and_title">
+    <input type="checkbox">
+    <textarea id="todo_title">Create and submit the Refresh Chicago expense report with receipts</textarea>
+  </section>
+  
+  <section>
+    <ul class="checkbox_list">
+    
+      {{# tags }}
+      <li>
+        <label>
+          <input type="checkbox" {{{ checked_attribute }}}>
+          <span class="title">{{{ title }}}</span>
+        </label>
+      </li>
+      {{/ tags }}
+    
+    </ul>
+  </section>
+    
+</section>

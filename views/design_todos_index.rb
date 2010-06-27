@@ -6,7 +6,7 @@ module WhatsNext
         todos = [
           { :title => 'Take out the trash' },
           { :title => 'Do the dishes' },
-          { :title => 'Clean the kat litter' },
+          { :title => 'Clean the cat litter' },
           { :title => 'Find a lightning talk presenter' },
           { :title => 'Find a main presenter' },
           { :title => 'Get a Refresh Chicago DBA' },

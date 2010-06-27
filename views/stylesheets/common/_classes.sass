@@ -1,0 +1,45 @@
+.checkbox_list
+  @include reset
+  
+  li
+    border-top: 1px solid $grey-light
+    position: relative
+    
+    &:first-child
+      border-top: 0
+    
+    &:first-child .title
+      @include border-top-left-radius
+      @include border-top-right-radius
+    
+    &:last-child .title
+      @include border-bottom-left-radius
+      @include border-bottom-right-radius
+    
+    input
+      margin: $lh * .5 + 1
+      position: absolute
+      z-index: 2
+    
+    .title
+      @include background-gradient( rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) )
+      color: black
+      font-weight: bold
+      display: block
+      height: 100%
+      left: 0
+      line-height: $lh * .75
+      padding: $lh * .5
+        left: $lh * 1.5
+      position: relative
+      text-decoration: none
+      top: 0
+      width: 100%
+      z-index: 1
+      
+      &:hover
+        background-color: $grey-light + #222
+      
+      &:active
+        background-color: $grey-light
+        color: $grey-dark
