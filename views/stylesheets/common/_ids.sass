@@ -23,14 +23,22 @@
     left: $lh * 1.5
 
   input[type="checkbox"]
+    font-size: $fs-h1
     left: $lh * .5
     position: absolute
-    top: $lh - 2
+    top: $lh * .5 + 3
   
   textarea
-    font-weight: bold
-    height: $lh * 3
-    line-height: $lh * .75
+    @include box-shadow(none)
+    border: 0
+    font:
+      size: $fs-h3
+      weight: bold
+    height: $lh
+    line-height: $lh
+    margin: 0
+    min-height: $lh * 3
+    padding: 0
     width: 100%
 
 #todo_tags
