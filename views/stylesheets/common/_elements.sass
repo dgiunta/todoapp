@@ -1,7 +1,7 @@
 *
   -webkit-box-sizing: border-box
 
-html
+html, body
   height: 100%
 
 body
@@ -12,7 +12,6 @@ body
     size: $fs
   -webkit-font-smoothing: antialiased
   line-height: $lh
-  padding-bottom: $lh * 3
   //width: 320px
 
 a
@@ -175,93 +174,27 @@ blockquote
       top: 0
 
 section
-  padding-top: $h-header
+  @include border-radius
+  @include box-shadow( 0 0 5px rgba(0, 0, 0, .5) )
+  background-color: white
+  margin: ($lh * 2) ($lh * .5) $lh
+  padding-top: 0
   position: relative
   
   header
-    @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
-    background-color: $blue-muted
-    border:
-      bottom: 1px solid #2d3642
-      top: 1px solid #ccd5df
-    color: white
-    height: $h-header
-    left: 0
-    padding: $lh * .5
-    overflow: hidden
-    position: fixed
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4)
-    top: 0
-    width: 100%
-    z-index: 10
+    background: transparent
+    border: 0
+    color: $blue-muted - #333
+    height: auto
+    padding: 0 ($lh * .5)
+    position: absolute
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
+    top: -$lh * 1.25
     
-    h1
-      font-size: $lh
-      line-height: 1
-      margin: 0 auto
-      overflow: hidden
-      text:
-        align: center
-        overflow: ellipsis
-      width: 190px
-      white-space: nowrap
-    
-    ul
-      @include reset
-      
-      li
-        @include border-radius
-        border: 1px solid ($blue-muted + #222)
-        position: absolute
-        right: 5px
-        top: 6px
-        
-        &:first-child
-          left: 5px
-          right: auto
-        
-        a
-          @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
-          @include border-radius
-          background-color: $blue-button
-          border: 1px solid rgba(0, 0, 0, .5)
-          color: white
-          display: block
-          font:
-            size: $fs-small
-            weight: bold
-          line-height: 27px
-          padding: 0 ($lh * .5)
-          
-          &:hover
-            background-color: $blue-button + #111
-            text-decoration: none
-          
-          &:active
-            background-color: $blue-button - #444
-
-  section
-    @include border-radius
-    @include box-shadow( 0 0 5px rgba(0, 0, 0, .5) )
-    background-color: white
-    margin: ($lh * 2) ($lh * .5) $lh
-    padding-top: 0
-    position: relative
-    
-    header
-      background: transparent
-      border: 0
-      color: $blue-muted - #333
-      height: auto
-      padding: 0 ($lh * .5)
-      position: absolute
-      text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
-      top: -$lh * 1.25
-      
-      h2
-        font:
-          size: $fs
-          weight: bold
-        line-height: $lh
-        margin: 0
+    h2
+      font:
+        size: $fs
+        weight: bold
+      line-height: $lh
+      margin: 0
 
