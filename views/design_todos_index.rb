@@ -16,6 +16,7 @@ module WhatsNext
         ]
         
         todos += Marshal.load( Marshal.dump(todos) )
+        todos += Marshal.load( Marshal.dump(todos) )
         
         todos.each_with_index do |t, i| 
           todos[i][:id] = i

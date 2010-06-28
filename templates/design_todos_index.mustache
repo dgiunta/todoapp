@@ -14,18 +14,22 @@
     </nav>    
   </header>
   
-  <section id="todos" class="full">
-    <ul class="checkbox_list">
+  <div class="body">
+  
+    <section id="todos" class="full">
+      <ul class="checkbox_list">
     
-      {{# todos }}
-        <li>
-          <input type="checkbox" {{{ checked_attribute }}}>
-          <a class="title" href="/design/todos/show">{{{ title }}}</a>
-        </li>
-      {{/ todos }}
+        {{# todos }}
+          <li>
+            <input type="checkbox" {{{ checked_attribute }}}>
+            <a class="title" href="/design/todos/show">{{{ title }}}</a>
+          </li>
+        {{/ todos }}
     
-    </ul>
-  </section>
+      </ul>
+    </section>
+  
+  </div>
   
 </section>
 

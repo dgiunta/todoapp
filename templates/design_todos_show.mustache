@@ -11,30 +11,34 @@
     </nav>    
   </header>
   
-  <section id="todo_check_and_title" class="full">
-    <input type="checkbox">
-    <textarea id="todo_title">Create and submit the Refresh Chicago expense report with receipts</textarea>
-  </section>
+  <div class="body">
   
-  <section id="todo_tags">
+    <section id="todo_check_and_title" class="full">
+      <input type="checkbox">
+      <textarea id="todo_title">Create and submit the Refresh Chicago expense report with receipts</textarea>
+    </section>
+  
+    <section id="todo_tags">
     
-    <header>
-      <h2>Filter Tags</h2>
-    </header>
+      <header>
+        <h2>Filter Tags</h2>
+      </header>
     
-    <ul class="checkbox_list">
+      <ul class="checkbox_list">
     
-      {{# tags }}
-      <li>
-        <label>
-          <input type="checkbox" {{{ checked_attribute }}}>
-          <span class="title">{{{ title }}}</span>
-        </label>
-      </li>
-      {{/ tags }}
+        {{# tags }}
+        <li>
+          <label>
+            <input type="checkbox" {{{ checked_attribute }}}>
+            <span class="title">{{{ title }}}</span>
+          </label>
+        </li>
+        {{/ tags }}
     
-    </ul>
+      </ul>
     
-  </section>
+    </section>
+  
+  </div>
     
 </section>

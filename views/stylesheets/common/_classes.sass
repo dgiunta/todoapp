@@ -53,9 +53,8 @@ section.page
   @include box-shadow(none)
   background: transparent
   margin: 0
-    top: $h-header
-  min-height: 100%
-  padding-bottom: $lh * 3
+  height: 100%
+  padding-top: $h-header
   position: relative
   
   & > header
@@ -71,7 +70,7 @@ section.page
     overflow: hidden
     position: absolute
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .4)
-    top: -$h-header
+    top: 0
     width: 100%
     z-index: 10
     
@@ -120,3 +119,8 @@ section.page
           &:active
             background-color: $blue-button - #444
 
+  & > .body
+    height: 100%
+    overflow: auto
+    padding-bottom: $lh * 3
+    
