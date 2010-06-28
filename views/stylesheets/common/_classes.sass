@@ -53,10 +53,9 @@ section.page
   @include box-shadow(none)
   background: transparent
   margin: 0
-  min-height: 100%
-  padding:
-    bottom: $lh * 3
     top: $h-header
+  min-height: 100%
+  padding-bottom: $lh * 3
   position: relative
   
   & > header
@@ -70,9 +69,9 @@ section.page
     left: 0
     padding: $lh * .5
     overflow: hidden
-    position: fixed
+    position: absolute
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .4)
-    top: 0
+    top: -$h-header
     width: 100%
     z-index: 10
     
