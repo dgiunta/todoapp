@@ -58,7 +58,7 @@ section.page
   position: relative
   
   & > header
-    @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
+    @include plastic-background-gradient
     background-color: $blue-muted
     border:
       bottom: 1px solid #2d3642
@@ -100,8 +100,8 @@ section.page
           right: auto
         
         a
-          @include background-gradient( rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) )
           @include border-radius
+          @include plastic-background-gradient
           background-color: $blue-button
           border: 1px solid rgba(0, 0, 0, .5)
           color: white

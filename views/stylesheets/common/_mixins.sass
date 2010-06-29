@@ -25,6 +25,10 @@ $w:           $lh * 47
   background-image: -moz-linear-gradient( top, $from-color $from-position, $to-color $to-position )
   background-image: -webkit-gradient( linear, 0 $from-position, 0 $to-position, from( $from-color ), to( $to-color ) )
 
+@mixin plastic-background-gradient
+  background-image: -moz-linear-gradient( top, rgba(255, 255, 255, .45) 0%, rgba(255, 255, 255, .35) 49%, rgba(255, 255, 255, .2) 51%, rgba(255, 255, 255, 0) 100% )
+  background-image: -webkit-gradient( linear, 0 0%, 0 100%, from( rgba(255, 255, 255, .45) ), color-stop( 49%, rgba(255, 255, 255, .35) ), color-stop( 51%, rgba(255, 255, 255, .2) ), to( rgba(255, 255, 255, 0) ) )
+
 
 
 @mixin border-radius( $radius: $lh * .25 )
