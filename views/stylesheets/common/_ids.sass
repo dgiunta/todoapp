@@ -36,7 +36,19 @@
     min-height: $lh * 3
     padding: 0
     width: 100%
+    
+#todo_description
+  @include box-shadow(none)
+  border: 0
+  height: ($lh * 3) + $lh
+  width: 100%
 
 #todo_tags
   font-weight: normal
+  
+  li.checked
+    
+    .title
+      @include text-shadow-light
+      background-color: $blue-muted + #444
     

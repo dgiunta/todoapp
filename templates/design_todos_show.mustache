@@ -18,6 +18,14 @@
       <textarea id="todo_title">Create and submit the Refresh Chicago expense report with receipts</textarea>
     </section>
   
+    <section>
+      <header>
+        <h2>Description</h2>
+      </header>
+      
+      <textarea id="todo_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
+    </section>
+  
     <section id="todo_tags">
     
       <header>
@@ -27,7 +35,7 @@
       <ul class="checkbox_list">
     
         {{# tags }}
-        <li>
+        <li class="{{{ checked_attribute }}}">
           <label>
             <input type="checkbox" {{{ checked_attribute }}}>
             <span class="title">{{{ title }}}</span>

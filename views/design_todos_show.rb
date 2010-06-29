@@ -4,7 +4,7 @@ module WhatsNext
       
       def tags
         tags = [
-          { :title => 'Errand' },
+          { :title => 'Errand', :checked_attribute => 'checked' },
           { :title => 'Errand: Groceries' },
           { :title => 'Home' },
           { :title => 'Refresh Chicago' },
