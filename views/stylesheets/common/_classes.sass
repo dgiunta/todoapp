@@ -41,13 +41,28 @@
         background-color: $grey-light + #222
       
       &:active
-        @include text-shadow-dark
         background-color: $grey-light
         color: $grey-dark
+    
+    &.checked
+    
+      .title
+        @include text-shadow-light
+        background-color: $blue-muted + #444
 
 section.full
   @include border-radius(0)
   margin: 0  
+  
+  .checkbox_list
+  
+    li
+    
+      &:first-child .title
+        @include border-radius(0)
+
+      &:last-child .title
+        @include border-radius(0)
 
 section.page
   @include border-radius(0)

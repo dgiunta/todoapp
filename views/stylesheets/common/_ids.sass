@@ -1,18 +1,20 @@
 #todos 
   
   li
-  
-    &:first-child .title
-      @include border-radius(0)
-  
-    &:last-child .title
-      @include border-radius(0)
-  
+    
     .title
     
       &:active
+        @include text-shadow-dark
         background-color: $blue
         color: white
+    
+    &.checked
+    
+      .title
+        @include text-shadow-light
+        background-color: $grey-light + #111
+        color: $grey-dark + #222
 
 #todo_check_and_title
   padding: $lh * .5
@@ -45,10 +47,4 @@
 
 #todo_tags
   font-weight: normal
-  
-  li.checked
-    
-    .title
-      @include text-shadow-light
-      background-color: $blue-muted + #444
     

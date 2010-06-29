@@ -20,7 +20,7 @@
       <ul class="checkbox_list">
     
         {{# todos }}
-          <li>
+          <li class="{{{ checked_attribute }}}">
             <input type="checkbox" {{{ checked_attribute }}}>
             <a class="title" href="/design/todos/show">{{{ title }}}</a>
           </li>
