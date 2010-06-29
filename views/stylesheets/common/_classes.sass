@@ -50,6 +50,22 @@
         @include text-shadow-light
         background-color: $blue-muted + #444
 
+    &.separator
+    
+      .title
+        @include plastic-background-gradient
+        @include text-shadow-dark
+        background-color: $grey-dark + #333
+        color: white
+        cursor: move
+        padding: 0
+        
+        .toggle_all_below
+          background: url("/images/triangle_open.png") no-repeat ($lh * .5) center
+          cursor: pointer
+          display: inline-block
+          padding: ($lh * .25) ($lh * 1.5)
+        
 section.full
   @include border-radius(0)
   margin: 0  

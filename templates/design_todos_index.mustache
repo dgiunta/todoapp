@@ -20,10 +20,24 @@
       <ul class="checkbox_list">
     
         {{# todos }}
-          <li class="{{{ checked_attribute }}}">
-            <input type="checkbox" {{{ checked_attribute }}}>
-            <a class="title" href="/design/todos/show">{{{ title }}}</a>
-          </li>
+
+          {{# separator }}
+            <li class="separator">
+              <div class="title">
+                <span class="toggle_all_below">
+                  Future
+                </span>
+              </div>
+            </li>
+          {{/ separator }}
+
+          {{^ separator }}
+            <li class="{{{ checked_attribute }}}">
+              <input type="checkbox" {{{ checked_attribute }}}>
+              <a class="title" href="/design/todos/show">{{{ title }}}</a>
+            </li>
+          {{/ separator }}
+
         {{/ todos }}
     
       </ul>
