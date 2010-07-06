@@ -41,16 +41,16 @@ $w:           $lh * 47
   -webkit-border-#{ $vertical }-#{ $horizontal }-radius: $radius
   border-#{ $vertical }-#{ $horizontal }-radius: $radius
 
-@mixin border-bottom-left-radius( !radius: $lh * .25 )
+@mixin border-bottom-left-radius( $radius: $lh * .25 )
   @include border-radius-singular( $radius, "bottom", "left" )
 
-@mixin border-bottom-right-radius( !radius: $lh * .25 )
+@mixin border-bottom-right-radius( $radius: $lh * .25 )
   @include border-radius-singular( $radius, "bottom", "right" )
 
-@mixin border-top-left-radius( !radius: $lh * .25 )
+@mixin border-top-left-radius( $radius: $lh * .25 )
   @include border-radius-singular( $radius, "top", "left" )
 
-@mixin border-top-right-radius( !radius: $lh * .25 )
+@mixin border-top-right-radius( $radius: $lh * .25 )
   @include border-radius-singular( $radius, "top", "right" )
 
 
