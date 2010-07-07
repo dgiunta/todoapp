@@ -1,6 +1,5 @@
 .rvmrc
 .sass-cache/*
 log/*
-public/javascripts/mustache*
 public/stylesheets/*
 tmp/*
