@@ -100,7 +100,7 @@ namespace :build do
   desc 'Build all Sass files'
   task :sass do
     options = (ENV['RACK_ENV'] == 'production') ? '--style compressed' : '-l'
-    system "sass #{ options } sass/application.sass public/stylesheets/application.css"
+    system "sass #{ options } --update ./sass:./public/stylesheets"
     done 'Built the Sass files.'
   end
   namespace :sass do
