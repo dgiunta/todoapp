@@ -1,5 +1,7 @@
 ROOT = File.expand_path File.dirname(__FILE__) unless defined?(ROOT)
 
+require 'json'
+
 begin
   require 'growl'
 rescue LoadError
@@ -12,14 +14,14 @@ def auto_task task, paths
     puts "\n\n`gem install bind` to run tasks automatically"
   else
     puts "\n"
-    system %|rake #{ task }|
+    system "rake #{ task }"
     puts "\n"
-    puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    puts "\n"
+    # puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    # puts "\n"
     puts "Waiting for your changes..."
     puts "Ctrl+C to exit"
     puts "\n"
-    system %|rbind to #{ paths } -e 'system "rake #{ task }"'|
+    system %| rbind to #{ paths } -e 'system "rake #{ task }" ; puts "\n"' |
   end
 end
 
@@ -58,34 +60,56 @@ end
 
 desc 'Build all static files'
 task :build => [ :'build:mustache', :'build:sass' ]
-
 namespace :build do
   
-  desc 'Build the Mustache JS files'
-  task :mustache do
-    File.open "#{ ROOT }/public/javascripts/mustache_views.js", "w" do |file|
-      Dir["#{ ROOT }/views/**/*.js"].each do |view|
-        contents = File.read(view) + "\n\n"
-        file.write contents
-      end
+  desc 'Build all Mustache JS files'
+  task :mustache => [ :'build:mustache:templates', :'build:mustache:views' ]
+  namespace :mustache do
+  
+    desc 'Build all Mustache JS files automatically as they change'
+    task :auto do
+      auto_task :'build:mustache', 'templates/ views/'
     end
-    done 'Built the Mustache views.'
+  
+    desc 'Build the Mustache template JS files'
+    task :templates do
+      File.open "#{ ROOT }/public/javascripts/mustache_templates.js", "w" do |file| 
+        templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
+          key = path.gsub(/(#{ ROOT }\/templates\/|\.mustache)/, '')
+          hash[key] = File.read path
+          hash
+        end
+        file.write "WhatsNext.Mustache.Templates = #{ templates.to_json };"
+      end
+      done 'Built the Mustache templates.'
+    end
+  
+    desc 'Build the Mustache view JS files'
+    task :views do
+      File.open "#{ ROOT }/public/javascripts/mustache_views.js", "w" do |file|
+        Dir["#{ ROOT }/views/**/*.js"].each do |view|
+          contents = File.read(view) + "\n\n"
+          file.write contents
+        end
+      end
+      done 'Built the Mustache views.'
+    end
+  
   end
   
-  desc 'Build the Mustache JS files automatically as they change'
-  task :'mustache:auto' do
-    auto_task :'build:mustache', 'templates/ views/'
-  end
-  
-  desc 'Build the Sass files'
+  desc 'Build all Sass files'
   task :sass do
-    system 'sass sass/application.sass public/stylesheets/application.css'
+    options = (ENV['RACK_ENV'] == 'production') ? '--style compressed' : '-l'
+    system "sass #{ options } sass/application.sass public/stylesheets/application.css"
     done 'Built the Sass files.'
   end
+  namespace :sass do
+    
+    desc 'Build all Sass files automatically as they change'
+    task :auto do
+      auto_task :'build:sass', 'sass/'
+    end
   
-  desc 'Build the Sass files automatically as they change'
-  task :'sass:auto' do
-    auto_task :'build:sass', 'sass/'
   end
   
 end
