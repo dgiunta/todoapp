@@ -25,7 +25,8 @@ WhatsNext.Page = new Class({
     );
 
     this.element = new Element('div', { html: rendered_template }).getFirst();
-    document.body.adopt(this.element);
+    // document.body.adopt(this.element);
+    this.element.inject(document.body);
     
     return this.element;
   }
@@ -36,10 +37,19 @@ WhatsNext.Page = new Class({
 
 window.addEvent('domready', function() {
   
-  window.onhashchange = function() {
+  var renderPage = function() {
     var path = window.location.hash.substr(2);
-    if (WhatsNext.Mustache.Views[path])
-      new WhatsNext.Page(path).render();
+    if (!WhatsNext.Mustache.Views[path]) return;
+
+    $$('section.page').dispose();
+    new WhatsNext.Page(path).render();
   };
+  
+  window.addEventListener('hashchange', renderPage, false);
+  
+  if (window.location.hash == '')
+    window.location.hash = '#/todos/index';
+  else
+    renderPage();
   
 });
