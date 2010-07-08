@@ -36,9 +36,10 @@ WhatsNext.Page = new Class({
 
 window.addEvent('domready', function() {
   
-  window.todosIndex = new WhatsNext.Page('todos/index');
-  window.todosShow  = new WhatsNext.Page('todos/show');
-  
-  window.todosIndex.render();
+  window.onhashchange = function() {
+    var path = window.location.hash.substr(2);
+    if (WhatsNext.Mustache.Views[path])
+      new WhatsNext.Page(path).render();
+  };
   
 });
