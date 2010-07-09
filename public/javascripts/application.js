@@ -40,7 +40,7 @@ window.addEvent('domready', function() {
     var path = window.location.hash.substr(2);
     if ( !WhatsNext.Mustache.Views[path] ) return;
 
-    $$('section.page').dispose();
+    // $$('section.page').dispose();
     new WhatsNext.Page(path).render();
   };
   

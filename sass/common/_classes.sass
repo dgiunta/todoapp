@@ -23,6 +23,7 @@
     
     .title
       @include background-gradient( rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) )
+      background-color: white
       color: black
       font-weight: bold
       display: block
@@ -89,7 +90,6 @@ section.full
 section.page
   @include border-radius(0)
   @include box-shadow(none)
-  background: transparent
   margin: 0
   height: 100%
   padding-top: $h-header
@@ -161,6 +161,7 @@ section.page
             font-size: $fs-h3
 
   & > .body
+    background-color: $grey-light
     height: 100%
     overflow: auto
     padding-bottom: $lh * 3
