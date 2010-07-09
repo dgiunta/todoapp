@@ -36,19 +36,35 @@ WhatsNext.Page = new Class({
 
 window.addEvent('domready', function() {
   
+  new WhatsNext.Page('todos/index').render();
+  
   var renderPage = function() {
     var path = window.location.hash.substr(2);
-    if ( !WhatsNext.Mustache.Views[path] ) return;
 
-    // $$('section.page').dispose();
+    if (path == 'todos/index') {
+      document.body.removeClass('slide_left');
+      return;
+    }
+    
+    if ( !WhatsNext.Mustache.Views[path] ) return;
+    
+    var pageElement = $( path.replace('/', '_') + '_page' );
+    if (pageElement) pageElement.dispose();
+
     new WhatsNext.Page(path).render();
+      
+    if (path == 'todos/show') {
+      (function() {
+        document.body.addClass('slide_left');
+      }).delay(10);
+    }
   };
   
   window.addEventListener('hashchange', renderPage, false);
   
-  if (window.location.hash == '')
-    window.location.hash = '#/todos/index';
-  else
-    renderPage();
-  
+  // if (window.location.hash == '')
+  //   window.location.hash = '#/todos/index';
+  // else
+  //   renderPage();
+    
 });
