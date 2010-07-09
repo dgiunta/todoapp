@@ -36,7 +36,7 @@ WhatsNext.renderPageFromFragment = function() {
   var path = window.location.hash.substr(2);
 
   if (path == 'todos/index') {
-    document.body.removeClass('slide_left');
+    document.body.removeClass('slide_left').removeClass('slide_up');
     return;
   }
   
@@ -46,10 +46,16 @@ WhatsNext.renderPageFromFragment = function() {
   if (pageElement) pageElement.dispose();
 
   new WhatsNext.Page(path).render();
-    
+  
+  var addBodyClass = null;
   if (path == 'todos/show')
+    addBodyClass = 'slide_left';
+  else if (path == 'todos/index_filter' || path == 'todos/new')
+    addBodyClass = 'slide_up';
+    
+  if (addBodyClass)
     (function() {
-      document.body.addClass('slide_left');
+      document.body.addClass(addBodyClass);
     }).delay(10);
 };
 

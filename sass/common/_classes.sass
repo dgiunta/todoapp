@@ -99,8 +99,19 @@ section.page
   -webkit-transition: left .4s, top .4s
   width: 100%
   
-  body.slide_left &
-    left: -100%
+  &.will_slide_left
+    left: 100%
+    z-index: 10
+
+    body.slide_left &
+      left: 0
+  
+  &.will_slide_up
+    top: 100%
+    z-index: 20
+
+    body.slide_up &
+      top: 0
   
   & > header
     @include plastic-background-gradient
