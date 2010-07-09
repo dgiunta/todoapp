@@ -1,0 +1,17 @@
+#todos 
+  
+  li
+    
+    .title
+    
+      &:active
+        @include text-shadow-dark
+        background-color: $blue
+        color: white
+    
+    &.checked
+    
+      .title
+        @include text-shadow-light
+        background-color: $grey-light + #111
+        color: $grey-dark + #444
