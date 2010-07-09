@@ -1,5 +1,7 @@
 WhatsNext.Mustache.Views['todos/index'] = {      
   
+  title: 'What&rsquo;s Next?',
+  
   todos: function() {
     var todos = [
       { title: 'Take out the trash' },
@@ -36,7 +38,7 @@ WhatsNext.Mustache.Views['todos/index'] = {
       if (i < 4) todo.checked_attribute = 'checked';
     });
     
-    // todos.insert 7, { :separator => true }
+    todos.splice(7, 0, { separator: true });
     
     return todos;
   }

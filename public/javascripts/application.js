@@ -25,7 +25,6 @@ WhatsNext.Page = new Class({
     );
 
     this.element = new Element('div', { html: rendered_template }).getFirst();
-    // document.body.adopt(this.element);
     this.element.inject(document.body);
     
     return this.element;
@@ -39,7 +38,7 @@ window.addEvent('domready', function() {
   
   var renderPage = function() {
     var path = window.location.hash.substr(2);
-    if (!WhatsNext.Mustache.Views[path]) return;
+    if ( !WhatsNext.Mustache.Views[path] ) return;
 
     $$('section.page').dispose();
     new WhatsNext.Page(path).render();
