@@ -48,7 +48,7 @@ WhatsNext.renderPageFromFragment = function() {
   new WhatsNext.Page(path).render();
   
   var addBodyClass = null;
-  if (path == 'todos/show')
+  if (path == 'todos/edit')
     addBodyClass = 'slide_left';
   else if (path == 'todos/index_filter' || path == 'todos/new')
     addBodyClass = 'slide_up';

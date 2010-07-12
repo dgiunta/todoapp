@@ -1,4 +1,4 @@
-WhatsNext.Mustache.Views['todos/show'] = {      
+WhatsNext.Mustache.Views['todos/edit'] = {      
   
   tags: function() {
     var tags = [
@@ -16,6 +16,8 @@ WhatsNext.Mustache.Views['todos/show'] = {
     });
     
     return tags;
-  }
+  },
+  
+  title: 'Edit Todo'
   
 };

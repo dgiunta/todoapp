@@ -18,6 +18,6 @@ WhatsNext.Mustache.Views['todos/index_filter'] = {
     return tags;
   },
   
-  title: 'Filter'
+  title: 'Filter Todos'
     
 };

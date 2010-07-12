@@ -18,6 +18,6 @@ WhatsNext.Mustache.Views['todos/new'] = {
     return tags;
   },
 
-  title: 'New'
+  title: 'New Todo'
     
 };
