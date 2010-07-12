@@ -177,7 +177,16 @@ section.page
           
           span
             font-size: $fs-h3
-
+          
+        &.primary a
+          background-color: $blue
+          
+          &:hover
+            background-color: $blue + #111
+        
+          &:active
+            background-color: $blue - #424
+        
   & > .body
     background-color: $grey-light
     height: 100%
