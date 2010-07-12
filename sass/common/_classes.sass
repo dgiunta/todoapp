@@ -2,7 +2,7 @@
   @include reset
   
   li
-    border-top: 1px solid $grey-light
+    border-bottom: 1px solid $grey-light
     position: relative
     
     &:first-child
@@ -46,6 +46,7 @@
         color: $grey-dark
     
     &.checked
+      border-color: $blue-muted + #333
     
       .title
         @include text-shadow-light
