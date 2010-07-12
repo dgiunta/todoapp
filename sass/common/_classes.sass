@@ -5,12 +5,12 @@
     border-bottom: 1px solid $grey-light
     position: relative
     
-    &:first-child
-      border-top: 0
-    
     &:first-child .title
       @include border-top-left-radius
       @include border-top-right-radius
+    
+    &:last-child
+      border-bottom: 0
     
     &:last-child .title
       @include border-bottom-left-radius
