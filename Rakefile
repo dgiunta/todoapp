@@ -114,4 +114,7 @@ namespace :build do
   
 end
 
-
+desc 'Deploy the app'
+task :deploy do
+  system %| ssh dreamhost 'cd ~/whats_next && git pull && rake build' |
+end
