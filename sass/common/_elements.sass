@@ -52,7 +52,7 @@ input, select, textarea
 
 input[type="email"], input[type="password"], input[type="tel"], input[type="text"], textarea
   @include border-radius(3px)
-  @include box-shadow( 0 1px 2px rgba(0, 0, 0, .2) inset )
+  //@include box-shadow( 0 1px 2px rgba(0, 0, 0, .2) inset )
   border: 1px solid rgba(0, 0, 0, .3)
     bottom-color: rgba(0, 0, 0, .2)
     top-color: rgba(0, 0, 0, .5)  
@@ -60,7 +60,7 @@ input[type="email"], input[type="password"], input[type="tel"], input[type="text
   padding: 0 ($lh * .25)
   
   &:focus
-    @include box-shadow( 0 2px 5px rgba(0, 0, 0, .2) )
+    //@include box-shadow( 0 2px 5px rgba(0, 0, 0, .2) )
     border:
       color: $blue - #111
       top-color: $blue - #222
