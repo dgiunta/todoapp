@@ -5,7 +5,7 @@ WhatsNext.Mustache = {
   Views: {}
 };
 
-WhatsNext.Page = new Class({
+WhatsNext.Panel = new Class({
   
   element: null,
   path: null,
@@ -32,7 +32,7 @@ WhatsNext.Page = new Class({
   
 });
 
-WhatsNext.renderPageFromFragment = function() {
+WhatsNext.renderPanelFromFragment = function() {
   var path = window.location.hash.substr(2);
 
   if (path == 'todos/index') {
@@ -42,10 +42,10 @@ WhatsNext.renderPageFromFragment = function() {
   
   if ( !WhatsNext.Mustache.Views[path] ) return;
   
-  var pageElement = $( path.replace('/', '_') + '_page' );
-  if (pageElement) pageElement.dispose();
+  var panelElement = $( path.replace('/', '_') + '_panel' );
+  if (panelElement) panelElement.dispose();
 
-  new WhatsNext.Page(path).render();
+  new WhatsNext.Panel(path).render();
   
   var addBodyClass = null;
   if (path == 'todos/edit')
@@ -63,10 +63,10 @@ WhatsNext.renderPageFromFragment = function() {
 
 window.addEvent('domready', function() {
     
-  new WhatsNext.Page('todos/index').render();
+  new WhatsNext.Panel('todos/index').render();
   
-  window.addEventListener('hashchange', WhatsNext.renderPageFromFragment, false);
+  window.addEventListener('hashchange', WhatsNext.renderPanelFromFragment, false);
   
-  WhatsNext.renderPageFromFragment();
+  WhatsNext.renderPanelFromFragment();
     
 });
