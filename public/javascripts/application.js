@@ -27,6 +27,8 @@ WhatsNext.Panel = new Class({
     this.element = new Element('div', { html: rendered_template }).getFirst();
     this.element.inject(document.body);
     
+    new iScroll( this.element.getElement('.body') );
+    
     return this.element;
   }
   
@@ -62,6 +64,8 @@ WhatsNext.renderPanelFromFragment = function() {
 
 
 window.addEvent('domready', function() {
+  
+  document.addEventListener('touchmove', function(e) { e.preventDefault(); });
     
   new WhatsNext.Panel('todos/index').render();
   
