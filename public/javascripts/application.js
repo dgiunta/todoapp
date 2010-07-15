@@ -27,7 +27,7 @@ WhatsNext.Panel = new Class({
     this.element = new Element('div', { html: rendered_template }).getFirst();
     this.element.inject(document.body);
     
-    new iScroll( this.element.getElement('.body') );
+    // new iScroll( this.element.getElement('.body') );
     
     return this.element;
   }
