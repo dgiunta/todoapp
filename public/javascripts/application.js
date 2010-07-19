@@ -5,60 +5,82 @@ WhatsNext.Mustache = {
   Views: {}
 };
 
+WhatsNext.panels = [];
+$extend(WhatsNext.panels, {
+  
+  findByPath: function(path) {
+    for (var i = this.length - 1; i >= 0; i--) {
+      if (this[i].path == path) 
+        return this[i];
+    }
+    
+    return null;
+  }
+  
+});
+
 WhatsNext.Panel = new Class({
   
+  Implements: [ Options ],
+  
   element: null,
+  options: {    
+    bodyClass: ''
+  },
   path: null,
   
-  initialize: function(path) {
+  initialize: function(path, options) {
     this.path = path;
+    this.setOptions(options);
+    WhatsNext.panels.push(this);
   },
   
-  destroy: function() {
-    this.element.dispose();
+  remove: function() {
+    if (this.element) this.element.dispose();
   },
   
   render: function() {
+    if ( !WhatsNext.Mustache.Views[this.path] ) return;
+    
+    this.remove();
+
     var rendered_template = Mustache.to_html( 
-      WhatsNext.Mustache.Templates[ this.path + '.html' ], 
-      WhatsNext.Mustache.Views[ this.path ] 
+      WhatsNext.Mustache.Templates[this.path + '.html'], 
+      WhatsNext.Mustache.Views[this.path] 
     );
 
     this.element = new Element('div', { html: rendered_template }).getFirst();
     this.element.inject(document.body);
     
-    // new iScroll( this.element.getElement('.body') );
+    (function() {
+      document.body.className = this.options.bodyClass;
+    }.bind(this)).delay(10);
     
-    return this.element;
+    // new iScroll( this.element.getElement('.body') );
   }
   
 });
 
-WhatsNext.renderPanelFromFragment = function() {
-  var path = window.location.hash.substr(2);
 
-  if (path == 'todos/index') {
-    document.body.removeClass('slide_left').removeClass('slide_up');
-    return;
-  }
-  
-  if ( !WhatsNext.Mustache.Views[path] ) return;
-  
-  var panelElement = $( path.replace('/', '_') + '_panel' );
-  if (panelElement) panelElement.dispose();
 
-  new WhatsNext.Panel(path).render();
+WhatsNext.redirect = function(path) {
+  console.log('Redirecting to "' + path + '"');
+  window.location.hash = '#' + path;
+};
+
+WhatsNext.callRouteFromFragment = function() {
+  var path   = window.location.hash.substr(1);
+  var routes = WhatsNext.routes.getKeys();
   
-  var addBodyClass = null;
-  if (path == 'todos/edit')
-    addBodyClass = 'slide_left';
-  else if (path == 'todos/index_filter' || path == 'todos/new')
-    addBodyClass = 'slide_up';
-    
-  if (addBodyClass)
-    (function() {
-      document.body.addClass(addBodyClass);
-    }).delay(10);
+  for (var i = 0; i < routes.length; i++) {
+    var match = path.match( routes[i] );
+    if (match) {
+      WhatsNext.routes[ routes[i] ].apply( null, match.splice(1) );
+      return;
+    }
+  };
+  
+  WhatsNext.redirect('/');
 };
 
 
@@ -67,10 +89,8 @@ window.addEvent('domready', function() {
   
   document.addEventListener('touchmove', function(e) { e.preventDefault(); });
     
-  new WhatsNext.Panel('todos/index').render();
+  window.addEventListener('hashchange', WhatsNext.callRouteFromFragment, false);
   
-  window.addEventListener('hashchange', WhatsNext.renderPanelFromFragment, false);
-  
-  WhatsNext.renderPanelFromFragment();
+  WhatsNext.callRouteFromFragment();
     
 });

@@ -75,7 +75,7 @@ namespace :build do
     task :templates do
       File.open "#{ ROOT }/public/javascripts/mustache/templates.js", "w" do |file| 
         templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
-          key = path.gsub(/(#{ ROOT }\/templates\/|\.mustache)/, '')
+          key = path.gsub(/(#{ ROOT }\/templates|\.mustache)/, '')
           hash[key] = File.read path
           hash
         end

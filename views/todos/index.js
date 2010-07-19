@@ -1,4 +1,4 @@
-WhatsNext.Mustache.Views['todos/index'] = {      
+WhatsNext.Mustache.Views['/todos/index'] = {      
   
   title: 'What&rsquo;s Next?',
   

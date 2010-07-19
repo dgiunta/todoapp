@@ -1,4 +1,4 @@
-WhatsNext.Mustache.Views['todos/edit'] = {      
+WhatsNext.Mustache.Views['/todos/edit'] = {      
   
   tags: function() {
     var tags = [
