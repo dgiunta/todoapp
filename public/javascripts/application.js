@@ -5,20 +5,6 @@ WhatsNext.Mustache = {
   Views: {}
 };
 
-WhatsNext.panels = [];
-$extend(WhatsNext.panels, {
-  
-  findByPath: function(path) {
-    for (var i = this.length - 1; i >= 0; i--) {
-      if (this[i].path == path) 
-        return this[i];
-    }
-    
-    return null;
-  }
-  
-});
-
 WhatsNext.Panel = new Class({
   
   Implements: [ Options ],
@@ -32,7 +18,13 @@ WhatsNext.Panel = new Class({
   initialize: function(path, options) {
     this.path = path;
     this.setOptions(options);
-    WhatsNext.panels.push(this);
+    WhatsNext._panels.push(this);
+  },
+  
+  afterRender: function() {
+    (function() {
+      document.body.className = this.options.bodyClass;
+    }.bind(this)).delay(10);
   },
   
   remove: function() {
@@ -52,11 +44,31 @@ WhatsNext.Panel = new Class({
     this.element = new Element('div', { html: rendered_template }).getFirst();
     this.element.inject(document.body);
     
-    (function() {
-      document.body.className = this.options.bodyClass;
-    }.bind(this)).delay(10);
+    this.afterRender();
     
     // new iScroll( this.element.getElement('.body') );
+  }
+  
+});
+
+WhatsNext._panels = [];
+
+$extend(WhatsNext.Panel, {
+  
+  find: function(path) {
+    for (var i = WhatsNext._panels.length - 1; i >= 0; i--) {
+      if (WhatsNext._panels[i].path == path) 
+        return WhatsNext._panels[i];
+    }
+    
+    return null;
+  },
+  
+  findOrCreate: function(path, options) {
+    var panel = this.find(path);
+    if (panel) return panel;
+    
+    return new this(path, options);
   }
   
 });

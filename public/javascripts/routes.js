@@ -7,37 +7,28 @@ WhatsNext.routes = new Hash({
   '^/todos/?$': function() {
     console.log('/todos/index');
     
-    if ( !WhatsNext.panels.findByPath('/todos/index') )
-      new WhatsNext.Panel('/todos/index');
+    var panel = WhatsNext.Panel.find('/todos/index');
+    if (panel) {
+      panel.afterRender();
+      return;
+    }
     
-    WhatsNext.panels.findByPath('/todos/index').render();
+    new WhatsNext.Panel('/todos/index').render();
   },
   
   '^/todos/index_filter/?$': function() {
     console.log('/todos/index_filter');
-
-    if ( !WhatsNext.panels.findByPath('/todos/index_filter') )
-      new WhatsNext.Panel('/todos/index_filter', { bodyClass: 'slide_up' });
-    
-    WhatsNext.panels.findByPath('/todos/index_filter').render();
+    WhatsNext.Panel.findOrCreate('/todos/index_filter', { bodyClass: 'slide_up' }).render();
   },
   
   '^/todos/new/?$': function() {
     console.log('/todos/new');
-
-    if ( !WhatsNext.panels.findByPath('/todos/new') )
-      new WhatsNext.Panel('/todos/new', { bodyClass: 'slide_up' });
-    
-    WhatsNext.panels.findByPath('/todos/new').render();
+    WhatsNext.Panel.findOrCreate('/todos/new', { bodyClass: 'slide_up' }).render();
   },
   
   '^/todos/(\\d+)/edit/?$': function(id) {
     console.log('/todos/edit with id: ' + id);
-
-    if ( !WhatsNext.panels.findByPath('/todos/edit') )
-      new WhatsNext.Panel('/todos/edit', { bodyClass: 'slide_left' });
-    
-    WhatsNext.panels.findByPath('/todos/edit').render();
+    WhatsNext.Panel.findOrCreate('/todos/edit', { bodyClass: 'slide_left' }).render();
   }
   
 });
