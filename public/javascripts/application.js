@@ -25,17 +25,14 @@ WhatsNext.Panel = new Class({
     (function() {
       document.body.className = this.options.bodyClass;
     }.bind(this)).delay(10);
-  },
-  
-  remove: function() {
-    if (this.element) this.element.dispose();
+    
+    return this;
   },
   
   render: function() {
-    if ( !WhatsNext.Mustache.Views[this.path] ) return;
+    if ( this.element || !WhatsNext.Mustache.Views[this.path] ) return this;
+    console.log('rendering...');
     
-    this.remove();
-
     var rendered_template = Mustache.to_html( 
       WhatsNext.Mustache.Templates[this.path + '.html'], 
       WhatsNext.Mustache.Views[this.path] 
@@ -44,9 +41,24 @@ WhatsNext.Panel = new Class({
     this.element = new Element('div', { html: rendered_template }).getFirst();
     this.element.inject(document.body);
     
-    this.afterRender();
-    
     // new iScroll( this.element.getElement('.body') );
+    
+    return this;
+  },
+  
+  show: function() {
+    this.render();
+    this.afterRender();
+    return this;
+  },
+  
+  unrender: function() {
+    if (this.element) {
+      this.element.dispose();
+      this.element = null;
+    }
+    
+    return this;
   }
   
 });
