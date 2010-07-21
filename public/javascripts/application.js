@@ -1,5 +1,10 @@
 WhatsNext = {};
 
+WhatsNext.logging = true;
+WhatsNext.log = function(message) {
+  if (WhatsNext.logging) console.log(message);
+};
+
 WhatsNext.Mustache = {
   Templates: {},
   Views: {}
@@ -31,7 +36,7 @@ WhatsNext.Panel = new Class({
   
   render: function() {
     if ( this.element || !WhatsNext.Mustache.Views[this.path] ) return this;
-    console.log('rendering...');
+    WhatsNext.log('RENDER "' + this.path + '"');
     
     var rendered_template = Mustache.to_html( 
       WhatsNext.Mustache.Templates[this.path + '.html'], 
@@ -88,7 +93,7 @@ $extend(WhatsNext.Panel, {
 
 
 WhatsNext.redirect = function(path) {
-  console.log('Redirecting to "' + path + '"');
+  WhatsNext.log('REDIRECT "' + path + '"');
   window.location.hash = '#' + path;
 };
 
@@ -99,6 +104,7 @@ WhatsNext.callRouteFromFragment = function() {
   for (var i = 0; i < routes.length; i++) {
     var match = path.match( routes[i] );
     if (match) {
+      WhatsNext.log('GET "' + path + '" => "' + routes[i] + '"');
       WhatsNext.routes[ routes[i] ].apply( null, match.splice(1) );
       return;
     }
