@@ -10,13 +10,16 @@ section.panel
   -webkit-transition: -webkit-transform .4s
   width: 100%
   
+  body.first_slide &
+    -webkit-transition-duration: 0
+
   &.will_slide_left
     -webkit-transform: translate(100%, 0)
     z-index: 10
 
     body.slide_left &
       -webkit-transform: translate(0, 0)
-  
+    
   &.will_slide_up
     -webkit-transform: translate(0, 100%)
     z-index: 20

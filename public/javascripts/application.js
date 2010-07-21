@@ -30,7 +30,9 @@ WhatsNext = {};
   
     afterRender: function() {
       (function() {
-        document.body.className = this.options.bodyClass;
+        var bodyClass = this.options.bodyClass;
+        if (_._panels.length == 1) bodyClass += ' first_slide';
+        document.body.className = bodyClass;
       }.bind(this)).delay(10);
     
       return this;
