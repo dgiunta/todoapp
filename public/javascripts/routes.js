@@ -1,32 +1,36 @@
-WhatsNext.routes = new Hash({
+(function(_) {
   
-  '^/?$': function() {
-    WhatsNext.redirect('/todos');
-  },
+  _.routes = new Hash({
   
-  '^/todos/?$': function() {
-    WhatsNext.Panel
-      .findOrCreate('/todos/index')
-      .show();
-  },
+    '^/?$': function() {
+      _.redirect('/todos');
+    },
   
-  '^/todos/index_filter/?$': function() {
-    WhatsNext.Panel
-      .findOrCreate('/todos/index_filter', { bodyClass: 'slide_up' })
-      .show();
-  },
+    '^/todos/?$': function() {
+      _.Panel
+        .findOrCreate('/todos/index')
+        .show();
+    },
   
-  '^/todos/new/?$': function() {
-    WhatsNext.Panel
-      .findOrCreate('/todos/new', { bodyClass: 'slide_up' })
-      .show();
-  },
+    '^/todos/index_filter/?$': function() {
+      _.Panel
+        .findOrCreate('/todos/index_filter', { bodyClass: 'slide_up' })
+        .show();
+    },
   
-  '^/todos/(\\d+)/edit/?$': function(id) {
-    WhatsNext.Panel
-      .findOrCreate('/todos/edit', { bodyClass: 'slide_left' })
-      .unrender()
-      .show();
-  }
+    '^/todos/new/?$': function() {
+      _.Panel
+        .findOrCreate('/todos/new', { bodyClass: 'slide_up' })
+        .show();
+    },
   
-});
+    '^/todos/(\\d+)/edit/?$': function(id) {
+      _.Panel
+        .findOrCreate('/todos/edit', { bodyClass: 'slide_left' })
+        .unrender()
+        .show();
+    }
+  
+  });
+
+})(WhatsNext);
