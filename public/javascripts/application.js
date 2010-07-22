@@ -29,6 +29,8 @@ WhatsNext = {};
     },
   
     afterRender: function() {
+      this.setCurrent();
+      
       (function() {
         var bodyClass = this.options.bodyClass;
         if (_._panels.length == 1) bodyClass += ' first_slide';
@@ -37,7 +39,7 @@ WhatsNext = {};
     
       return this;
     },
-  
+    
     render: function() {
       if ( this.element || !_.Mustache.Views[this.path] ) return this;
       _.log('RENDER "' + this.path + '"');
@@ -53,6 +55,11 @@ WhatsNext = {};
       // new iScroll( this.element.getElement('.body') );
     
       return this;
+    },
+    
+    setCurrent: function() {
+      $$('.panel.current').removeClass('current');
+      this.element.addClass('current');
     },
   
     show: function() {
