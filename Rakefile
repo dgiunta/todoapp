@@ -116,5 +116,5 @@ end
 
 desc 'Deploy the app'
 task :deploy do
-  system %| ssh dreamhost 'cd ~/whats_next && git pull && rake build' |
+  system %| git push; ssh dreamhost 'cd ~/whats_next && git pull && rake build' |
 end
