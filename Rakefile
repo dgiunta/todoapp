@@ -73,7 +73,7 @@ namespace :build do
   
     desc 'Build the Mustache template JS files'
     task :templates do
-      File.open "#{ ROOT }/public/javascripts/mustache/templates.js", "w" do |file| 
+      File.open "#{ ROOT }/public/javascripts/whats_next/templates.js", "w" do |file| 
         templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
           key = path.gsub(/(#{ ROOT }\/templates|\.mustache)/, '')
           hash[key] = File.read path
@@ -86,7 +86,7 @@ namespace :build do
   
     desc 'Build the Mustache view JS files'
     task :views do
-      File.open "#{ ROOT }/public/javascripts/mustache/views.js", "w" do |file|
+      File.open "#{ ROOT }/public/javascripts/whats_next/views.js", "w" do |file|
         Dir["#{ ROOT }/views/**/*.js"].each do |view|
           contents = File.read(view) + "\n\n"
           file.write contents
