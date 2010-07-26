@@ -108,14 +108,14 @@ WhatsNext = {};
     window.location.hash = '#' + path;
   };
 
-  _.callRouteFromFragment = function() {
+  _.callRouteFromHash = function() {
     var path   = window.location.hash.substr(1);
     var routes = _.routes.getKeys();
   
     for (var i = 0; i < routes.length; i++) {
       var match = path.match( routes[i] );
       if (match) {
-        _.log('GET "' + path + '" => "' + routes[i] + '"');
+        _.log('ROUTE "' + path + '"  -->  "' + routes[i] + '"');
         _.routes[ routes[i] ].apply( null, match.splice(1) );
         return;
       }
@@ -130,8 +130,8 @@ WhatsNext = {};
   
     document.addEventListener('touchmove', function(e) { e.preventDefault(); });
     
-    window.addEventListener('hashchange', _.callRouteFromFragment, false);
-    _.callRouteFromFragment();
+    window.addEventListener('hashchange', _.callRouteFromHash, false);
+    _.callRouteFromHash();
     
   });
 
