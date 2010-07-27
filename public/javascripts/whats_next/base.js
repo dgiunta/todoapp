@@ -21,14 +21,12 @@ WhatsNext = {
     
     initialize: function(attributes) {
       this._createAccessors();
-      $H(attributes).each( function(value, attribute) {
-        this[ this._setterFor(attribute) ](value);
-      }.bind(this));
+      this._setAttributes(attributes);
     },
     
     _createAccessor: function(attribute) {
-      this._createReader(attribute);
-      this._createWriter(attribute);
+      this._createGetter(attribute);
+      this._createSetter(attribute);
     },
     
     _createAccessors: function() {
@@ -37,17 +35,21 @@ WhatsNext = {
       }.bind(this));
     },
     
-    _createReader: function(attribute) {
+    _createGetter: function(attribute) {
       if ( this[attribute] ) return;
+      
+      this._validatePresenceOf(attribute);
       
       this[attribute] = function() {
         return this._attributes[attribute];
       }.bind(this);
     },
     
-    _createWriter: function(attribute) {
+    _createSetter: function(attribute) {
       var setter = this._setterFor(attribute);
       if ( this[setter] ) return;
+      
+      this._validatePresenceOf(attribute);
       
       this[setter] = function(value) {
         this._attributes[attribute] = value;
@@ -55,8 +57,20 @@ WhatsNext = {
       }.bind(this);
     },
     
+    _setAttributes: function(attributes) {
+      $H(attributes).each( function(value, attribute) {
+        this[ this._setterFor(attribute) ](value);
+      }.bind(this));
+    },
+    
     _setterFor: function(attribute) {
+      this._validatePresenceOf(attribute);
       return 'set' + attribute.charAt(0).toUpperCase() + attribute.slice(1);
+    },
+    
+    _validatePresenceOf: function(attribute) {
+      if ( !(attribute in this._attributes) )
+        throw 'ArgumentError: ' + attribute + ' is not present in _attributes';
     }
     
   });

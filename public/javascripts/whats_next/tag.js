@@ -5,6 +5,7 @@
     Implements: [ _.Model ],
     
     _attributes: {
+      id: null,
       title: ''
     }
     
@@ -13,19 +14,22 @@
   $extend(_.Tag, {
     
     all: function() {
-      var tags = [
-        { title: 'Errand', checked_attribute: 'checked' },
+      var tagAttributes = [
+        { title: 'Errand' },
         { title: 'Errand: Groceries' },
         { title: 'Home' },
         { title: 'Refresh Chicago' },
         { title: 'Refresh Chicago: May 2010' },
-        { title: 'Refresh Chicago: June 2010', checked_attribute: 'checked' },
+        { title: 'Refresh Chicago: June 2010' },
         { title: 'Work' }
       ];
-
-      tags.each( function(tag, i) {
-        tags.id = i;
-      });
+      
+      var tags = [];
+      tagAttributes.each( function(attributes, i) {
+        tag = new this(attributes);
+        tag.setId(i);
+        tags.push(tag);
+      }.bind(this));
 
       return tags;
     }

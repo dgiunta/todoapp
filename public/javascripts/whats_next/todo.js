@@ -5,6 +5,7 @@
     Implements: [ _.Model ],
     
     _attributes: {
+      id: null,
       title: ''
     }
     
@@ -13,7 +14,7 @@
   $extend(_.Todo, {
     
     all: function() {
-      var todos = [
+      var todoAttributes = [
         { title: 'Take out the trash' },
         { title: 'Do the dishes' },
         { title: 'Clean the cat litter' },
@@ -43,10 +44,13 @@
         { title: 'Get groceries' }
       ];
 
-      todos.each( function(todo, i) { 
-        todo.id = i;
-        if (i < 4) todo.checked_attribute = 'checked';
-      });
+      var todos = [];
+      todoAttributes.each( function(attributes, i) { 
+        todo = new this(attributes);
+        todo.setId(i);
+        // if (i < 4) todo.checked_attribute = 'checked';
+        todos.push(todo);
+      }.bind(this));
 
       todos.splice(7, 0, { separator: true });
 
@@ -54,7 +58,9 @@
     },
     
     find: function(id) {
-      return { title: id + ' Create and submit the Refresh Chicago expense report with receipts' };
+      // var todo = new this({ title: id + ' Create and submit the Refresh Chicago expense report with receipts' });
+      var todo = this.all()[id];
+      return todo;
     }
     
   });
