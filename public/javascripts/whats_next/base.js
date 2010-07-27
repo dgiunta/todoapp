@@ -34,10 +34,10 @@ WhatsNext = {
       this.addEvent('afterRender', this._setBodyClass);
     },
     
-    _renderTemplate: function() {
+    _renderTemplate: function(viewVariables) {
       return Mustache.to_html( 
         _.Mustache.Templates[this.path + '.html'], 
-        _.Mustache.Views[this.path] 
+        viewVariables 
       );
     },
   
@@ -52,11 +52,13 @@ WhatsNext = {
       this.element.addClass('current');
     },
   
-    render: function() {
-      if ( !this.element && _.Mustache.Views[this.path] ) {
+    render: function(viewVariables) {
+      if (!this.element) {
         _.log('RENDER "' + this.path + '"');
-    
-        this.element = new Element('div', { html: this._renderTemplate() }).getFirst();
+        
+        var renderedTemplate = this._renderTemplate(viewVariables);
+        
+        this.element = new Element('div', { html: renderedTemplate }).getFirst();
         this.element.inject(document.body);
     
         // new iScroll( this.element.getElement('.body') );
