@@ -17,7 +17,7 @@ WhatsNext = {
 
   _.Panel = new Class({
   
-    Implements: [ Options ],
+    Implements: [ Events, Options ],
   
     element: null,
     options: {    
@@ -29,46 +29,39 @@ WhatsNext = {
       this.path = path;
       this.setOptions(options);
       _._panels.push(this);
+      
+      this.addEvent('afterRender', this.setCurrent);
+      this.addEvent('afterRender', this.setBodyClass);
     },
   
-    afterRender: function() {
-      this.setCurrent();
-      
-      (function() {
-        var bodyClass = this.options.bodyClass;
-        if (_._panels.length == 1) bodyClass += ' first_slide';
-        document.body.className = bodyClass;
-      }.bind(this)).delay(10);
+    render: function() {
+      if ( !this.element && _.Mustache.Views[this.path] ) {
+        _.log('RENDER "' + this.path + '"');
     
+        var rendered_template = Mustache.to_html( 
+          _.Mustache.Templates[this.path + '.html'], 
+          _.Mustache.Views[this.path] 
+        );
+
+        this.element = new Element('div', { html: rendered_template }).getFirst();
+        this.element.inject(document.body);
+    
+        // new iScroll( this.element.getElement('.body') );
+      }
+      
+      this.fireEvent('afterRender', [], 50);
       return this;
     },
     
-    render: function() {
-      if ( this.element || !_.Mustache.Views[this.path] ) return this;
-      _.log('RENDER "' + this.path + '"');
-    
-      var rendered_template = Mustache.to_html( 
-        _.Mustache.Templates[this.path + '.html'], 
-        _.Mustache.Views[this.path] 
-      );
-
-      this.element = new Element('div', { html: rendered_template }).getFirst();
-      this.element.inject(document.body);
-    
-      // new iScroll( this.element.getElement('.body') );
-    
-      return this;
+    setBodyClass: function() {
+      var bodyClass = this.options.bodyClass;
+      if (_._panels.length == 1) bodyClass += ' first_slide';
+      document.body.className = bodyClass;
     },
     
     setCurrent: function() {
       $$('.panel.current').removeClass('current');
       this.element.addClass('current');
-    },
-  
-    show: function() {
-      this.render();
-      this.afterRender();
-      return this;
     },
   
     unrender: function() {
