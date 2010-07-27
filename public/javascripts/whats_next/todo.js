@@ -58,7 +58,6 @@
     },
     
     find: function(id) {
-      // var todo = new this({ title: id + ' Create and submit the Refresh Chicago expense report with receipts' });
       var todo = this.all()[id];
       return todo;
     }
