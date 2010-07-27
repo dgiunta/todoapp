@@ -15,6 +15,47 @@ WhatsNext = {
 
 
 
+  _.Model = new Class({
+    
+    _attributes: {},
+    
+    initialize: function(attributes) {
+      this._createAccessors();
+    },
+    
+    _createAccessor: function(attribute) {
+      this._createReader(attribute);
+      this._createWriter(attribute);
+    },
+    
+    _createAccessors: function() {
+      $H(this._attributes).getKeys().each( function(attribute) {
+        this._createAccessor(attribute);
+      }.bind(this));
+    },
+    
+    _createReader: function(attribute) {
+      if ( this[attribute] ) return;
+      
+      this[attribute] = function() {
+        return this._attributes[attribute];
+      }.bind(this);
+    },
+    
+    _createWriter: function(attribute) {
+      var setter = 'set' + attribute.charAt(0).toUpperCase() + attribute.slice(1);
+      if ( this[setter] ) return;
+      
+      this[setter] = function(value) {
+        this._attributes[attribute] = value;
+        return this;
+      }.bind(this);
+    }
+    
+  });
+  
+  
+  
   _.Panel = new Class({
   
     Implements: [ Events, Options ],

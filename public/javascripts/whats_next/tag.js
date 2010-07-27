@@ -2,12 +2,10 @@
   
   _.Tag = new Class({
     
-    attributes: {
-      title: ''
-    },
+    Implements: [ _.Model ],
     
-    initialize: function(attributes) {
-      $extend(this.attributes, attributes);
+    _attributes: {
+      title: ''
     }
     
   });
