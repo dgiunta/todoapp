@@ -62,39 +62,26 @@ desc 'Build all static files'
 task :build => [ :'build:mustache', :'build:sass' ]
 namespace :build do
   
-  desc 'Build all Mustache JS files'
-  task :mustache => [ :'build:mustache:templates', :'build:mustache:views' ]
+  desc 'Build the Mustache template JS file'
+  task :mustache do
+    File.open "#{ ROOT }/public/javascripts/whats_next/templates.js", "w" do |file| 
+      templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
+        key = path.gsub(/(#{ ROOT }\/templates|\.mustache)/, '')
+        hash[key] = File.read path
+        hash
+      end
+      file.write "WhatsNext.Mustache.Templates = #{ templates.to_json };"
+    end
+    done 'Built the Mustache templates.'
+  end
+  
   namespace :mustache do
   
-    desc 'Build all Mustache JS files automatically as they change'
+    desc 'Build the Mustache template JS file automatically as the templates change'
     task :auto do
-      auto_task :'build:mustache', 'templates/ views/'
+      auto_task :'build:mustache', 'templates/'
     end
-  
-    desc 'Build the Mustache template JS files'
-    task :templates do
-      File.open "#{ ROOT }/public/javascripts/whats_next/templates.js", "w" do |file| 
-        templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
-          key = path.gsub(/(#{ ROOT }\/templates|\.mustache)/, '')
-          hash[key] = File.read path
-          hash
-        end
-        file.write "WhatsNext.Mustache.Templates = #{ templates.to_json };"
-      end
-      done 'Built the Mustache templates.'
-    end
-  
-    desc 'Build the Mustache view JS files'
-    task :views do
-      File.open "#{ ROOT }/public/javascripts/whats_next/views.js", "w" do |file|
-        Dir["#{ ROOT }/views/**/*.js"].each do |view|
-          contents = File.read(view) + "\n\n"
-          file.write contents
-        end
-      end
-      done 'Built the Mustache views.'
-    end
-  
+      
   end
   
   desc 'Build all Sass files'
@@ -103,6 +90,7 @@ namespace :build do
     system "sass #{ options } --update ./sass:./public/stylesheets"
     done 'Built the Sass files.'
   end
+  
   namespace :sass do
     
     desc 'Build all Sass files automatically as they change'
