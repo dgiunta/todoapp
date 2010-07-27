@@ -1,16 +1,19 @@
-WhatsNext = {};
+WhatsNext = {
+  _panels: [],
+  logging: true,
+  Mustache: {
+    Templates: {},
+    Views: {}
+  }
+};
 
 (function(_) {
   
-  _.logging = true;
   _.log = function(message) {
     if (_.logging) console.log(message);
   };
 
-  _.Mustache = {
-    Templates: {},
-    Views: {}
-  };
+
 
   _.Panel = new Class({
   
@@ -79,8 +82,6 @@ WhatsNext = {};
   
   });
 
-  _._panels = [];
-
   $extend(_.Panel, {
   
     find: function(path) {
@@ -123,16 +124,5 @@ WhatsNext = {};
   
     _.redirect('/');
   };
-
-
-
-  window.addEvent('domready', function() {
-  
-    document.addEventListener('touchmove', function(e) { e.preventDefault(); });
-    
-    window.addEventListener('hashchange', _.callRouteFromHash, false);
-    _.callRouteFromHash();
-    
-  });
 
 })(WhatsNext);
