@@ -21,6 +21,9 @@ WhatsNext = {
     
     initialize: function(attributes) {
       this._createAccessors();
+      $H(attributes).each( function(value, attribute) {
+        this[ this._setterFor(attribute) ](value);
+      }.bind(this));
     },
     
     _createAccessor: function(attribute) {
@@ -43,13 +46,17 @@ WhatsNext = {
     },
     
     _createWriter: function(attribute) {
-      var setter = 'set' + attribute.charAt(0).toUpperCase() + attribute.slice(1);
+      var setter = this._setterFor(attribute);
       if ( this[setter] ) return;
       
       this[setter] = function(value) {
         this._attributes[attribute] = value;
         return this;
       }.bind(this);
+    },
+    
+    _setterFor: function(attribute) {
+      return 'set' + attribute.charAt(0).toUpperCase() + attribute.slice(1);
     }
     
   });
