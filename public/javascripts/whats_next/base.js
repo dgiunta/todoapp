@@ -30,20 +30,33 @@ WhatsNext = {
       this.setOptions(options);
       _._panels.push(this);
       
-      this.addEvent('afterRender', this.setCurrent);
-      this.addEvent('afterRender', this.setBodyClass);
+      this.addEvent('afterRender', this._setCurrent);
+      this.addEvent('afterRender', this._setBodyClass);
+    },
+    
+    _renderTemplate: function() {
+      return Mustache.to_html( 
+        _.Mustache.Templates[this.path + '.html'], 
+        _.Mustache.Views[this.path] 
+      );
+    },
+  
+    _setBodyClass: function() {
+      var bodyClass = this.options.bodyClass;
+      if (_._panels.length == 1) bodyClass += ' first_slide';
+      document.body.className = bodyClass;
+    },
+    
+    _setCurrent: function() {
+      $$('.panel.current').removeClass('current');
+      this.element.addClass('current');
     },
   
     render: function() {
       if ( !this.element && _.Mustache.Views[this.path] ) {
         _.log('RENDER "' + this.path + '"');
     
-        var rendered_template = Mustache.to_html( 
-          _.Mustache.Templates[this.path + '.html'], 
-          _.Mustache.Views[this.path] 
-        );
-
-        this.element = new Element('div', { html: rendered_template }).getFirst();
+        this.element = new Element('div', { html: this._renderTemplate() }).getFirst();
         this.element.inject(document.body);
     
         // new iScroll( this.element.getElement('.body') );
@@ -53,17 +66,6 @@ WhatsNext = {
       return this;
     },
     
-    setBodyClass: function() {
-      var bodyClass = this.options.bodyClass;
-      if (_._panels.length == 1) bodyClass += ' first_slide';
-      document.body.className = bodyClass;
-    },
-    
-    setCurrent: function() {
-      $$('.panel.current').removeClass('current');
-      this.element.addClass('current');
-    },
-  
     unrender: function() {
       if (this.element) {
         this.element.dispose();
