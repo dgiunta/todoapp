@@ -4,7 +4,8 @@ WhatsNext = {
   Mustache: {
     Templates: {},
     Views: {}
-  }
+  },
+  params: []
 };
 
 (function(_) {
@@ -96,10 +97,10 @@ WhatsNext = {
       this.addEvent('afterRender', this._setBodyClass);
     },
     
-    _renderTemplate: function(viewVariables) {
+    _renderTemplate: function() {
       return Mustache.to_html( 
         _.Mustache.Templates[this.path + '.html'], 
-        viewVariables 
+        _.Mustache.Views[this.path] 
       );
     },
   
@@ -114,13 +115,14 @@ WhatsNext = {
       this.element.addClass('current');
     },
   
-    render: function(viewVariables) {
+    render: function() {
       if (!this.element) {
+        if ( !_.Mustache.Views[this.path] )
+          throw 'WhatsNext.Panel: could not find the view at "' + this.path + '"';
+        
         _.log('RENDER "' + this.path + '"');
         
-        var renderedTemplate = this._renderTemplate(viewVariables);
-        
-        this.element = new Element('div', { html: renderedTemplate }).getFirst();
+        this.element = new Element('div', { html: this._renderTemplate() }).getFirst();
         this.element.inject(document.body);
     
         // new iScroll( this.element.getElement('.body') );
@@ -176,7 +178,8 @@ WhatsNext = {
       var match = path.match( routes[i] );
       if (match) {
         _.log('ROUTE "' + path + '"  -->  "' + routes[i] + '"');
-        _.routes[ routes[i] ].apply( null, match.splice(1) );
+        _.params = match.splice(1);
+        _.routes[ routes[i] ].apply( null, _.params );
         return;
       }
     };

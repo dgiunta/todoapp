@@ -1,23 +1,17 @@
-WhatsNext.Mustache.Views['/todos/edit'] = {      
+(function(_) {
   
-  tags: function() {
-    var tags = [
-      { title: 'Errand', checked_attribute: 'checked' },
-      { title: 'Errand: Groceries' },
-      { title: 'Home' },
-      { title: 'Refresh Chicago' },
-      { title: 'Refresh Chicago: May 2010' },
-      { title: 'Refresh Chicago: June 2010', checked_attribute: 'checked' },
-      { title: 'Work' }
-    ];
+  _.Mustache.Views['/todos/edit'] = {      
+  
+    tags: function() {
+      return _.Tag.all();
+    },
+
+    title: 'Edit Todo',
     
-    tags.each( function(tag, i) {
-      tags.id = i;
-    });
+    todo: function() {
+      return _.Todo.find( _.params[0] );
+    }
     
-    return tags;
-  },
-  
-  title: 'Edit Todo'
-  
-};
+  };
+
+})(WhatsNext);
