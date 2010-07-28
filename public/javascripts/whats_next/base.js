@@ -1,10 +1,7 @@
 WhatsNext = {
   _panels: [],
   logging: true,
-  Mustache: {
-    Templates: {},
-    Views: {}
-  }
+  Templates: {}
 };
 
 (function(_) {
@@ -112,8 +109,8 @@ WhatsNext = {
     
     _renderTemplate: function(viewOptions) {
       return Mustache.to_html( 
-        _.Mustache.Templates[this.path + '.html'], 
-        new _.Mustache.Views[this.path](viewOptions) 
+        _.Templates[this.path + '.html'], 
+        new _.Views[this.path](viewOptions) 
       );
     },
   
@@ -130,7 +127,7 @@ WhatsNext = {
   
     render: function(viewOptions) {
       if (!this.element) {
-        if ( !_.Mustache.Views[this.path] )
+        if ( !_.Views[this.path] )
           throw 'Error: could not find the view at "' + this.path + '"';
         
         _.log('RENDER "' + this.path + '"');
