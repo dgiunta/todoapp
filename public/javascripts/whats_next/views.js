@@ -1,10 +1,8 @@
 (function(_) {
   
-  _.Views = {
+  _.Views = $H({
     
     '/todos/edit': new Class({
-    
-      Implements: [ _.View ],
     
       tags: function() {
         return _.Tag.all();
@@ -20,8 +18,6 @@
 
     '/todos/index': new Class({
     
-      Implements: [ _.View ],
-    
       title: 'What&rsquo;s Next?',
     
       todos: function() {
@@ -33,8 +29,6 @@
 
     '/todos/index_filter': new Class({
     
-      Implements: [ _.View ],    
-  
       tags: function() {
         return _.Tag.all();
       },
@@ -45,8 +39,6 @@
 
     '/todos/new': new Class({
     
-      Implements: [ _.View ],    
-  
       tags: function() {
         return _.Tag.all();
       },
@@ -55,6 +47,18 @@
     
     })
   
-  };
+  });
+  
+  _.Views.each( function(view) {
+    view.implement({
+
+      Implements: [ Options ],
+
+      initialize: function(options) {
+        this.setOptions(options);
+      }
+
+    });
+  });
 
 })(WhatsNext);

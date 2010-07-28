@@ -74,20 +74,6 @@ WhatsNext = {
   
   
   
-  _.View = new Class({
-    
-    Implements: [ Options ],
-    
-    options: {},
-    
-    initialize: function(options) {
-      this.setOptions(options);
-    }
-  
-  });
-  
-  
-  
   _.Panel = new Class({
   
     Implements: [ Events, Options ],
