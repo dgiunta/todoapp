@@ -59,7 +59,7 @@ end
 
 
 desc 'Build all static files'
-task :build => [ :'build:mustache', :'build:sass' ]
+task :build => [ :'build:sass', :'build:templates' ]
 namespace :build do
   
   desc 'Build all Sass files'
