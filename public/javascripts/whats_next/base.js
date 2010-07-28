@@ -4,8 +4,7 @@ WhatsNext = {
   Mustache: {
     Templates: {},
     Views: {}
-  },
-  params: []
+  }
 };
 
 (function(_) {
@@ -78,6 +77,20 @@ WhatsNext = {
   
   
   
+  _.View = new Class({
+    
+    Implements: [ Options ],
+    
+    options: {},
+    
+    initialize: function(options) {
+      this.setOptions(options);
+    }
+  
+  });
+  
+  
+  
   _.Panel = new Class({
   
     Implements: [ Events, Options ],
@@ -97,10 +110,10 @@ WhatsNext = {
       this.addEvent('afterRender', this._setBodyClass);
     },
     
-    _renderTemplate: function() {
+    _renderTemplate: function(viewOptions) {
       return Mustache.to_html( 
         _.Mustache.Templates[this.path + '.html'], 
-        _.Mustache.Views[this.path] 
+        new _.Mustache.Views[this.path](viewOptions) 
       );
     },
   
@@ -115,14 +128,16 @@ WhatsNext = {
       this.element.addClass('current');
     },
   
-    render: function() {
+    render: function(viewOptions) {
       if (!this.element) {
         if ( !_.Mustache.Views[this.path] )
-          throw 'WhatsNext.Panel: could not find the view at "' + this.path + '"';
+          throw 'Error: could not find the view at "' + this.path + '"';
         
         _.log('RENDER "' + this.path + '"');
         
-        this.element = new Element('div', { html: this._renderTemplate() }).getFirst();
+        var renderedTemplate = this._renderTemplate(viewOptions);
+        
+        this.element = new Element('div', { html: renderedTemplate }).getFirst();
         this.element.inject(document.body);
     
         // new iScroll( this.element.getElement('.body') );
@@ -178,8 +193,7 @@ WhatsNext = {
       var match = path.match( routes[i] );
       if (match) {
         _.log('ROUTE "' + path + '"  -->  "' + routes[i] + '"');
-        _.params = match.splice(1);
-        _.routes[ routes[i] ].apply( null, _.params );
+        _.routes[ routes[i] ].apply( null, match.splice(1) );
         return;
       }
     };

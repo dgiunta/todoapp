@@ -1,7 +1,9 @@
 (function(_) {
   
-  _.Mustache.Views['/todos/index'] = {      
-  
+  _.Mustache.Views['/todos/index'] = new Class({
+    
+    Implements: [ _.View ],
+    
     title: 'What&rsquo;s Next?',
     
     todos: function() {
@@ -9,6 +11,6 @@
       return todos;
     }
 
-  };
+  });
 
 })(WhatsNext);

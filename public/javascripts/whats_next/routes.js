@@ -28,7 +28,7 @@
       _.Panel
         .findOrCreate('/todos/edit', { bodyClass: 'slide_left' })
         .unrender()
-        .render();
+        .render({ id: id });
     }
   
   });
