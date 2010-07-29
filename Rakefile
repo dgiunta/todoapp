@@ -5,7 +5,7 @@ require 'json'
 begin
   require 'jasmine'
   load 'jasmine/tasks/jasmine.rake'
-rescue
+rescue LoadError
 end
 
 def auto_task task, paths
