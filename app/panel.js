@@ -1,3 +1,5 @@
+_._panels = [];
+
 _.Panel = new Class({
 
   Implements: [ Events, Options ],

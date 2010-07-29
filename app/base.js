@@ -1,9 +1,4 @@
-_._panels = [];
-
 _.logging = true;
-
-_.Templates = {};
-
 _.log = function(message) {
   if (_.logging) console.log(message);
 };
