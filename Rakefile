@@ -1,6 +1,8 @@
 ROOT = File.expand_path File.dirname(__FILE__) unless defined?(ROOT)
 
 require 'json'
+require 'jasmine'
+load 'jasmine/tasks/jasmine.rake'
 
 begin
   require 'growl'
