@@ -52,8 +52,6 @@
         todos.push(todo);
       }.bind(this));
 
-      todos.splice(7, 0, { separator: true });
-
       return todos;
     },
     

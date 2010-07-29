@@ -22,6 +22,7 @@
     
       todos: function() {
         var todos = _.Todo.all();
+        todos.splice(7, 0, { separator: true });
         return todos;
       }
 
