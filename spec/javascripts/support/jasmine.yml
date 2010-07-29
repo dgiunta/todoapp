@@ -12,7 +12,7 @@
 #
 src_files:
   - support/**/*.js
-  - whats_next/**/*.js
+  - whats_next.js
 
 # stylesheets
 #

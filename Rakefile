@@ -4,11 +4,6 @@ require 'json'
 require 'jasmine'
 load 'jasmine/tasks/jasmine.rake'
 
-begin
-  require 'growl'
-rescue LoadError
-end
-
 def auto_task task, paths
   begin
     require 'bind'
@@ -27,33 +22,6 @@ def auto_task task, paths
   end
 end
 
-def growl_notify title, passed
-  return unless defined?(Growl) and Growl.installed?
-  
-  messages = {
-    true => [
-      'Great job!',
-      'Greeaat jeeooorrrb, Am Scray!',
-      'Gimme five!',
-      'Nice work!',
-      'Hell yes!',
-      'That’s what I’m talkin’ about!' 
-    ],
-    false => [
-      'Oh noes!',
-      'Well that sucks.',
-      'Again? Really!?',
-      '“Woop!” says DHH.' 
-    ]
-  }
-  
-  message = messages[passed].sort_by { rand(321) }.first
-  title   = "#{ title } #{ passed ? 'Passed' : 'Failed' }"
-  image   = passed ? 'green' : 'red'
-  
-  Growl.notify message, :title => title, :icon => ( File.dirname(__FILE__) + "/features/support/images/#{ image }.png" )
-end
-
 def done message
   puts "#{ Time.now.strftime('%X') } - #{ message }"
 end
@@ -61,10 +29,38 @@ end
 
 
 desc 'Build all static files'
-task :build => [ :'build:sass', :'build:templates' ]
+task :build => [ :'build:sass', :'build:templates', :'build:app' ]
 namespace :build do
   
-  desc 'Build all Sass files'
+  desc 'Build the app JS'
+  task :app do
+    File.open "#{ ROOT }/public/javascripts/whats_next.js", "w" do |file| 
+      contents = Dir["#{ ROOT }/app/**/*.js"].inject('') do |str, path|
+        str << ( "\n\n" + File.read(path) )
+      end
+      file.write <<-JS
+      
+if ( !$defined(WhatsNext) ) var WhatsNext = {};
+
+(function(_) {
+  #{ contents }
+})(WhatsNext);
+
+      JS
+    end
+    done 'Built the app JS file.'
+  end
+
+  namespace :app do
+  
+    desc 'Build the app JS automatically as the app files change'
+    task :auto do
+      auto_task :'build:app', 'app/'
+    end
+  
+  end
+  
+  desc 'Build Sass files'
   task :sass do
     options = (ENV['RACK_ENV'] == 'production') ? '--style compressed' : '-l'
     system "sass #{ options } --update ./sass:./public/stylesheets"
@@ -73,16 +69,16 @@ namespace :build do
   
   namespace :sass do
     
-    desc 'Build all Sass files automatically as they change'
+    desc 'Build Sass files automatically as they change'
     task :auto do
       auto_task :'build:sass', 'sass/'
     end
   
   end
   
-  desc 'Build the templates JS file'
+  desc 'Build templates JS file'
   task :templates do
-    File.open "#{ ROOT }/public/javascripts/whats_next/templates.js", "w" do |file| 
+    File.open "#{ ROOT }/app/templates.js", "w" do |file| 
       templates = Dir["#{ ROOT }/templates/**/*.mustache"].inject({}) do |hash, path|
         key = path.gsub(/(#{ ROOT }\/templates|\.mustache)/, '')
         hash[key] = File.read path
@@ -95,7 +91,7 @@ namespace :build do
 
   namespace :templates do
   
-    desc 'Build the templates JS file automatically as the templates change'
+    desc 'Build templates JS file automatically as the templates change'
     task :auto do
       auto_task :'build:templates', 'templates/'
     end
