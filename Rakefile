@@ -39,7 +39,7 @@ namespace :build do
   desc 'Build the app JS'
   task :app do
     File.open "#{ ROOT }/public/javascripts/whats_next.js", "w" do |file| 
-      contents = Dir["#{ ROOT }/app/**/*.js"].inject('') do |str, path|
+      contents = Dir["#{ ROOT }/app/**/*.js"].sort.inject('') do |str, path|
         str << ( "\n\n" + File.read(path) )
       end
       file.write <<-JS
