@@ -29,5 +29,15 @@ describe('Base', function() {
 
   });
   
+  describe('redirecting requests', function() {
+    
+    it('modifies the browser’s hash', function() {
+      window.location.hash = '#/';
+      WhatsNext.redirect('/path/to/something');
+      expect(window.location.hash).toEqual('#/path/to/something');
+    });
+    
+  });
+  
 });
 
