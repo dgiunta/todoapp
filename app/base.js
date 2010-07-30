@@ -21,5 +21,5 @@ _.callRouteFromHash = function() {
     }
   };
 
-  _.redirect('/');
+  if (path != '/') _.redirect('/');
 };

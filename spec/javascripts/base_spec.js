@@ -78,7 +78,24 @@ describe('WhatsNext base functionality', function() {
       window.location.hash = '#/posts/45/edit';
       
       WhatsNext.callRouteFromHash();
-      expect( WhatsNext.routes[route] ).toHaveBeenCalledWith([ '45', 'edit' ]);
+      expect( WhatsNext.routes[route] ).toHaveBeenCalledWith('45', 'edit');
+    });
+    
+    it('redirects to "/" if no routes match the current hash', function() {
+      spyOn(WhatsNext, 'redirect');
+      window.location.hash = '#abcdefg123';
+      
+      WhatsNext.callRouteFromHash();
+      expect(WhatsNext.redirect).toHaveBeenCalledWith('/');
+    });
+    
+    it('does NOT redirect to "/" if the current hash is "/" and no route is found', function() {
+      WhatsNext.routes = new Hash({});
+      spyOn(WhatsNext, 'redirect');
+      window.location.hash = '#/';
+      
+      WhatsNext.callRouteFromHash();
+      expect(WhatsNext.redirect).not.toHaveBeenCalled();
     });
     
   });
