@@ -13,12 +13,16 @@ _.Panel = new Class({
   initialize: function(path, options) {
     this.path = path;
     this.setOptions(options);
+    
+    if ( _.Panel.find(path) )
+      throw 'PanelError: already initialized panel with path "' + path + '"';
+    
     _._panels.push(this);
   
     this.addEvent('afterRender', this._setCurrent);
     this.addEvent('afterRender', this._setBodyClass);
   },
-
+  
   _renderTemplate: function(viewOptions) {
     return Mustache.to_html( 
       _.Templates[this.path + '.html'], 
