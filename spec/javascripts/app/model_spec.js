@@ -12,10 +12,6 @@ describe('WhatsNext.Model', function() {
     fake = new FakeModel();
   });
   
-  it('exists', function() {
-    expect(WhatsNext.Model).toBeDefined();
-  });
-  
   describe('Getters / Setters', function() {
     
     it('creates a getter method based on keys specified in _attributes', function() {

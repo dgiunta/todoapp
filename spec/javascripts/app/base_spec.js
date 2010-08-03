@@ -1,9 +1,5 @@
 describe('WhatsNext base functionality', function() {
   
-  it('should have a common namespace', function() {
-    expect(WhatsNext).not.toBe(null);
-  });
-  
   describe('logging', function() {
     
     it('has logging on by default', function() {
