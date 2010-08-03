@@ -15,7 +15,7 @@ _.Panel = new Class({
     this.setOptions(options);
     
     if ( _.Panel.find(path) )
-      throw 'PanelError: already initialized panel with path "' + path + '"';
+      throw 'Error: already initialized panel with path "' + path + '"';
     
     _._panels.push(this);
   
@@ -41,7 +41,7 @@ _.Panel = new Class({
     
       _.log('RENDER "' + this.path + '"');
     
-      var renderedTemplate = this._renderTemplate(viewOptions);
+      var renderedTemplate = this.renderTemplate(viewOptions);
     
       this.element = new Element('div', { html: renderedTemplate }).getFirst();
       this.element.inject(document.body);

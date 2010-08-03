@@ -19,7 +19,7 @@ describe('WhatsNext.Panel', function() {
     
     expect( function() {
       new WhatsNext.Panel('/path'); 
-    }).toThrow('PanelError: already initialized panel with path "/path"');
+    }).toThrow('Error: already initialized panel with path "/path"');
   });
   
   it('keeps track of a containing element', function() {
