@@ -32,8 +32,6 @@ _.Model = new Class({
     var setter = this._setterFor(attribute);
     if ( this[setter] ) return;
   
-    this._validatePresenceOf(attribute);
-  
     this[setter] = function(value) {
       this._attributes[attribute] = value;
       return this;
