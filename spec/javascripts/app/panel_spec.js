@@ -22,4 +22,42 @@ describe('WhatsNext.Panel', function() {
     }).toThrow('PanelError: already initialized panel with path "/path"');
   });
   
+  it('keeps track of a containing element', function() {
+    var panel = new WhatsNext.Panel('/path');
+    expect( panel.element ).toBe(null);
+  });
+  
+  describe('rendering', function() {
+    
+    beforeEach( function() {
+      originalTemplates = WhatsNext.Templates;
+      WhatsNext.Templates = {
+        '/path.html': 'Hello world!'
+      };
+
+      originalViews = WhatsNext.Views;
+      WhatsNext.Views = $H({
+        '/path': new Class()
+      });      
+    });
+    
+    afterEach( function() {
+      WhatsNext.Views     = originalViews;
+      WhatsNext.Templates = originalTemplates;
+    });
+    
+    it('renders the template with Mustache', function() {
+      spyOn(Mustache, 'to_html');
+      
+      var panel = new WhatsNext.Panel('/path');
+      panel.renderTemplate();
+      
+      expect(Mustache.to_html).toHaveBeenCalledWith( 
+        WhatsNext.Templates['/path.html'], 
+        new WhatsNext.Views['/path']() 
+      );
+    });
+    
+  });
+  
 });

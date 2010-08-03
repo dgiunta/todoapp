@@ -23,13 +23,6 @@ _.Panel = new Class({
     this.addEvent('afterRender', this._setBodyClass);
   },
   
-  _renderTemplate: function(viewOptions) {
-    return Mustache.to_html( 
-      _.Templates[this.path + '.html'], 
-      new _.Views[this.path](viewOptions) 
-    );
-  },
-
   _setBodyClass: function() {
     var bodyClass = this.options.bodyClass;
     if (_._panels.length == 1) bodyClass += ' first_slide';
@@ -58,6 +51,13 @@ _.Panel = new Class({
   
     this.fireEvent('afterRender', [], 50);
     return this;
+  },
+
+  renderTemplate: function(viewOptions) {
+    return Mustache.to_html( 
+      _.Templates[this.path + '.html'], 
+      new _.Views[this.path](viewOptions) 
+    );
   },
 
   unrender: function() {
