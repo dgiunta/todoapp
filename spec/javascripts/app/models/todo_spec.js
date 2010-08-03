@@ -1,7 +1,19 @@
 describe('WhatsNext.Todo', function() {
   
-  it('exists', function() {
-    expect(WhatsNext.Todo).toBeDefined();
+  describe('attributes', function() {
+    
+    beforeEach( function() {
+      todo = new WhatsNext.Todo();
+    });
+  
+    it('has an id attribute', function() {
+      expect( todo.id() ).toBe(null);
+    });
+  
+    it('has a name attribute', function() {
+      expect( todo.title() ).toEqual('');
+    });
+  
   });
   
 });
