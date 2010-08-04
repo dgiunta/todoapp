@@ -36,17 +36,12 @@ _.Panel = new Class({
 
   render: function(viewOptions) {
     if (!this.element) {
-      if ( !_.Views[this.path] )
-        throw 'Error: could not find the view at "' + this.path + '"';
-    
       _.log('RENDER "' + this.path + '"');
     
       var renderedTemplate = this.renderTemplate(viewOptions);
     
       this.element = new Element('div', { html: renderedTemplate }).getFirst();
       this.element.inject(document.body);
-
-      // new iScroll( this.element.getElement('.body') );
     }
   
     this.fireEvent('afterRender', [], 50);
@@ -54,8 +49,16 @@ _.Panel = new Class({
   },
 
   renderTemplate: function(viewOptions) {
+    var templatePath = this.path + '.html';
+    
+    if ( !_.Templates[templatePath] )
+      throw 'Error: could not find the template at "' + templatePath + '"';
+  
+    if ( !_.Views[this.path] )
+      throw 'Error: could not find the view at "' + this.path + '"';
+  
     return Mustache.to_html( 
-      _.Templates[this.path + '.html'], 
+      _.Templates[templatePath], 
       new _.Views[this.path](viewOptions) 
     );
   },
