@@ -88,7 +88,19 @@ describe('WhatsNext.Panel', function() {
     describe('when the containing element exists', function() {
     
       beforeEach( function() {
-        
+        panel.element = new Element('div');
+      });
+      
+      it('does NOT render the template', function() {
+        spyOn(panel, 'renderTemplate');
+        panel.render();
+        expect( panel.renderTemplate ).not.toHaveBeenCalled();
+      });
+    
+      it('does NOT modify the containing element', function() {
+        var originalElement = panel.element;
+        panel.render();
+        expect( panel.element ).toBe(originalElement);
       });
     
     });
