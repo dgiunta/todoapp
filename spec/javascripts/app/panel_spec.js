@@ -32,7 +32,7 @@ describe('WhatsNext.Panel', function() {
     beforeEach( function() {
       originalTemplates = WhatsNext.Templates;
       WhatsNext.Templates = {
-        '/path.html': 'Hello world!'
+        '/path.html': '<section>Hello world!</section>'
       };
 
       originalViews = WhatsNext.Views;
@@ -46,16 +46,42 @@ describe('WhatsNext.Panel', function() {
       WhatsNext.Templates = originalTemplates;
     });
     
-    it('renders the template with Mustache', function() {
-      spyOn(Mustache, 'to_html');
+    describe('when the containing element does NOT yet exist', function() {
+    
+      it('renders the template with Mustache', function() {
+        spyOn(Mustache, 'to_html');
       
-      var panel = new WhatsNext.Panel('/path');
-      panel.renderTemplate();
+        var panel = new WhatsNext.Panel('/path');
+        panel.renderTemplate();
       
-      expect(Mustache.to_html).toHaveBeenCalledWith( 
-        WhatsNext.Templates['/path.html'], 
-        new WhatsNext.Views['/path']() 
-      );
+        expect(Mustache.to_html).toHaveBeenCalledWith( 
+          WhatsNext.Templates['/path.html'], 
+          new WhatsNext.Views['/path']() 
+        );
+      });
+    
+      it('creates the containing element using the rendered template', function() {
+        var panel = new WhatsNext.Panel('/path');
+        panel.render();
+        expect( panel.element.get('text') ).toEqual('Hello world!');
+      });
+    
+      it('injects the containing element into the document body', function() {
+        var panel = new WhatsNext.Panel('/path');
+        panel.render();
+        expect( panel.element.getParent() ).toBe(document.body);
+      });
+
+      it('throws an error if the associated view class is NOT present', function() {
+        expect( function() {
+          new WhatsNext.Panel('/non-existent').render();
+        }).toThrow('Error: could not find the view at "/non-existent"');
+      });
+    
+    });
+    
+    describe('when the containing element exists', function() {
+      
     });
     
   });
