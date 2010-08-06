@@ -1,5 +1,3 @@
-_._panels = [];
-
 _.Panel = new Class({
 
   Implements: [ Events, Options ],
@@ -17,7 +15,7 @@ _.Panel = new Class({
     if ( _.Panel.find(path) )
       throw 'Error: already initialized panel with path "' + path + '"';
     
-    _._panels.push(this);
+    _.Panel._panels.push(this);
   
     this.addEvent('afterRender', this._setCurrent);
     this.addEvent('afterRender', this._setBodyClass);
@@ -25,8 +23,10 @@ _.Panel = new Class({
   
   _setBodyClass: function() {
     var bodyClass = this.options.bodyClass;
-    if (_._panels.length == 1) bodyClass += ' first_slide';
+    if (!_.Panel._firstPanelWasRendered) bodyClass += ' first_render';
     document.body.className = bodyClass;
+    
+    _.Panel._firstPanelWasRendered = true;
   },
 
   _setCurrent: function() {
@@ -75,11 +75,14 @@ _.Panel = new Class({
 });
 
 $extend(_.Panel, {
+  
+  _firstPanelWasRendered: false,
+  _panels: [],
 
   find: function(path) {
-    for (var i = _._panels.length - 1; i >= 0; i--) {
-      if (_._panels[i].path == path) 
-        return _._panels[i];
+    for (var i = this._panels.length - 1; i >= 0; i--) {
+      if (this._panels[i].path == path) 
+        return this._panels[i];
     }
 
     return null;

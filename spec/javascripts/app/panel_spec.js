@@ -1,26 +1,31 @@
 describe('WhatsNext.Panel', function() {
   
   beforeEach( function() {
-    originalPanels = WhatsNext._panels;
-    WhatsNext._panels = [];
+    originalPanels = WhatsNext.Panel._panels;
+    WhatsNext.Panel._panels = [];
     
     originalTemplates = WhatsNext.Templates;
     WhatsNext.Templates = {
-      '/path.html': '<section>Hello world!</section>'
+      '/path.html':  '<section class="panel">Hello world!</section>',
+      '/path2.html': '<section class="panel">Hello other world!</section>'
     };
 
     originalViews = WhatsNext.Views;
     WhatsNext.Views = $H({
-      '/path': new Class()
+      '/path':  new Class(),
+      '/path2': new Class()
     });  
     
-    panel = new WhatsNext.Panel('/path');    
+    panel  = new WhatsNext.Panel('/path',  { bodyClass: 'the_body_class' });
+    panel2 = new WhatsNext.Panel('/path2', { bodyClass: 'the_other_body_class' });
+    
+    WhatsNext.Panel._firstPanelWasRendered = false;
   });
   
   afterEach( function() {
-    WhatsNext._panels   = originalPanels;
-    WhatsNext.Templates = originalTemplates;
-    WhatsNext.Views     = originalViews;
+    WhatsNext.Panel._panels = originalPanels;
+    WhatsNext.Templates     = originalTemplates;
+    WhatsNext.Views         = originalViews;
   });
   
   it('is initialized with a path which dictates where to find the views and templates', function() {
@@ -83,6 +88,47 @@ describe('WhatsNext.Panel', function() {
         expect( panel.element.getParent() ).toBe(document.body);
       });
 
+      it('denotes the current panel with a class', function() {
+        runs( function() {
+          panel.render();
+        });
+        waits(100);
+        runs( function() {
+          expect(panel.element.className).toContain('current');
+        });
+        
+        runs( function() {
+          panel2.render();
+        });
+        waits(100);
+        runs( function() {
+          expect(panel.element.className).not.toContain('current');
+          expect(panel2.element.className).toContain('current');
+        });
+      });
+
+      it('adds a class to the body when specified', function() {
+        runs( function() {
+          expect(document.body.className).not.toContain('the_body_class');
+          expect(document.body.className).not.toContain('first_render');
+
+          panel.render();
+        });
+        waits(100);
+        runs( function() {
+          expect(document.body.className).toContain('the_body_class');
+          expect(document.body.className).toContain('first_render');
+
+          panel2.render();
+        });
+        waits(100);
+        runs( function() {
+          expect(document.body.className).not.toContain('the_body_class');
+          expect(document.body.className).not.toContain('first_render');
+          expect(document.body.className).toContain('the_other_body_class');
+        });
+      });
+      
     });
   
     describe('when the containing element exists', function() {
