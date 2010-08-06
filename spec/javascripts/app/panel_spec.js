@@ -72,6 +72,10 @@ describe('WhatsNext.Panel', function() {
   });
   
   describe('.render()', function() {
+    
+    it('returns the object for easy chaining', function() {
+      expect( panel.render() ).toBe(panel);
+    });
   
     describe('when the containing element does NOT yet exist', function() {
   
@@ -155,6 +159,10 @@ describe('WhatsNext.Panel', function() {
   
   describe('.unrender()', function() {
     
+    it('returns the object for easy chaining', function() {
+      expect( panel.unrender() ).toBe(panel);
+    });
+  
     it('removes the panel’s element from the DOM', function() {
       runs( function() {
         panel.render();
