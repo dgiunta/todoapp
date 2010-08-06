@@ -152,5 +152,54 @@ describe('WhatsNext.Panel', function() {
     });
   
   });
-      
+  
+  describe('.unrender()', function() {
+    
+    it('removes the panel’s element from the DOM', function() {
+      runs( function() {
+        panel.render();
+        theElement = panel.element;
+      });
+      waits(100);
+      runs( function() {
+        panel.unrender();
+        expect(panel.element).toBeNull();
+        expect( theElement.getParent() ).toBeNull();        
+      });
+    });
+    
+  });
+  
+  describe('self.find()', function() {
+    
+    it('returns an initialized panel based on the specified path', function() {
+      expect( WhatsNext.Panel.find('/path')  ).toBe(panel);
+      expect( WhatsNext.Panel.find('/path2') ).toBe(panel2);
+    });
+    
+    it('returns null if a panel with the specified path does NOT exist', function() {
+      expect( WhatsNext.Panel.find('/non-existant/path') ).toBeNull();
+    });
+    
+  });
+  
+  describe('self.findOrCreate()', function() {
+    
+    beforeEach( function() {
+      WhatsNext.Templates['/path3.html'] = '<section class="panel">Hello other world!</section>';
+      WhatsNext.Views['/path3'] = new Class();
+    });
+    
+    it('returns an already-initialized panel based on the specified path', function() {
+      expect( WhatsNext.Panel.findOrCreate('/path')  ).toBe(panel);
+    });
+    
+    it('initializes and returns a not-yet-initialized panel based on the specified path', function() {
+      var panel3 = WhatsNext.Panel.findOrCreate('/path3');
+      expect(panel3).toBeAnInstanceOf(WhatsNext.Panel);
+      expect(panel3.path).toEqual('/path3');
+    });
+    
+  });
+  
 });
