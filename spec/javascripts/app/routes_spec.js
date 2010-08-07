@@ -21,7 +21,7 @@ describe('WhatsNext.Routes', function() {
   
   describe('/todos', function() {
     
-    it('creates a panel', function() {
+    it('finds or creates a panel', function() {
       spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
       WhatsNext.route('/todos');
       expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index');
@@ -40,7 +40,7 @@ describe('WhatsNext.Routes', function() {
   
   describe('/todos/index_filter', function() {
     
-    it('creates a panel', function() {
+    it('finds or creates a panel', function() {
       spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
       WhatsNext.route('/todos/index_filter');
       expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index_filter', { bodyClass: 'slide_up' });
@@ -59,7 +59,7 @@ describe('WhatsNext.Routes', function() {
   
   describe('/todos/new', function() {
     
-    it('creates a panel', function() {
+    it('finds or creates a panel', function() {
       spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
       WhatsNext.route('/todos/new');
       expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/new', { bodyClass: 'slide_up' });
@@ -72,6 +72,27 @@ describe('WhatsNext.Routes', function() {
       
       WhatsNext.route('/todos/new');
       expect(thePanel.render).toHaveBeenCalled();
+    });
+    
+  });
+  
+  describe('/todos/1/edit', function() {
+    
+    it('finds or creates a panel', function() {
+      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
+      WhatsNext.route('/todos/1/edit');
+      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/edit', { bodyClass: 'slide_left' });
+    });
+    
+    it('unrenders and then renders the panel', function() {
+      thePanel = new WhatsNext.Panel();
+      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      spyOn(thePanel, 'unrender').andCallThrough();
+      spyOn(thePanel, 'render');
+      
+      WhatsNext.route('/todos/42/edit');
+      expect(thePanel.unrender).toHaveBeenCalled();
+      expect(thePanel.render).toHaveBeenCalledWith({ id: '42' });
     });
     
   });
