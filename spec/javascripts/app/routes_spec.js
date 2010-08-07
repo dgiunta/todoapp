@@ -38,4 +38,42 @@ describe('WhatsNext.Routes', function() {
     
   });
   
+  describe('/todos/index_filter', function() {
+    
+    it('creates a panel', function() {
+      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
+      WhatsNext.route('/todos/index_filter');
+      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index_filter', { bodyClass: 'slide_up' });
+    });
+    
+    it('renders the panel', function() {
+      thePanel = new WhatsNext.Panel();
+      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      spyOn(thePanel, 'render');
+      
+      WhatsNext.route('/todos/index_filter');
+      expect(thePanel.render).toHaveBeenCalled();
+    });
+    
+  });
+  
+  describe('/todos/new', function() {
+    
+    it('creates a panel', function() {
+      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
+      WhatsNext.route('/todos/new');
+      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/new', { bodyClass: 'slide_up' });
+    });
+    
+    it('renders the panel', function() {
+      thePanel = new WhatsNext.Panel();
+      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      spyOn(thePanel, 'render');
+      
+      WhatsNext.route('/todos/new');
+      expect(thePanel.render).toHaveBeenCalled();
+    });
+    
+  });
+  
 });
