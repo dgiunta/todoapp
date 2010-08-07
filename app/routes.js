@@ -1,4 +1,4 @@
-_.routes = new Hash({
+_.Routes = new Hash({
 
   '^/?$': function() {
     _.redirect('/todos');

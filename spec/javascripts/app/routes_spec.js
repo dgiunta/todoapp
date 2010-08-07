@@ -1,7 +1,9 @@
-describe('WhatsNext.routes', function() {
+describe('WhatsNext.Routes', function() {
   
-  it('exists', function() {
-    expect(WhatsNext.routes).toBeDefined();
+  it('redirects "/" to "/todos"', function() {
+    spyOn(WhatsNext, 'redirect');
+    WhatsNext.route('/');
+    expect(WhatsNext.redirect).toHaveBeenCalledWith('/todos');
   });
   
 });

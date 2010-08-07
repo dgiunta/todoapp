@@ -38,8 +38,8 @@ describe('WhatsNext base functionality', function() {
   describe('routing requests', function() {
     
     beforeEach( function() {
-      originalRoutes = WhatsNext.routes;
-      WhatsNext.routes = new Hash({
+      originalRoutes = WhatsNext.Routes;
+      WhatsNext.Routes = new Hash({
         '^/$': $empty,
         '^/posts$': $empty,
         '^/posts/(\\d+)/(\\w+)$': $empty
@@ -47,51 +47,54 @@ describe('WhatsNext base functionality', function() {
     });
     
     afterEach( function() {
-      WhatsNext.routes = originalRoutes;
+      WhatsNext.Routes = originalRoutes;
     });
     
-    it('finds the appropriate regex route from the hash and calls it', function() {
+    it('finds the route whose regex matches the desired path and calls it', function() {
       var route = '^/$';
-      spyOn(WhatsNext.routes, route);
-      window.location.hash = '#/';
+      spyOn(WhatsNext.Routes, route);
       
-      WhatsNext.callRouteFromHash();
-      expect( WhatsNext.routes[route] ).toHaveBeenCalled();
+      WhatsNext.route('/');
+      expect( WhatsNext.Routes[route] ).toHaveBeenCalled();
     });
     
-    it('finds the another regex route from the hash and calls it', function() {
+    it('finds another route whose regex matches the desired path and calls it', function() {
       var route = '^/posts$';
-      spyOn(WhatsNext.routes, route);
-      window.location.hash = '#/posts';
+      spyOn(WhatsNext.Routes, route);
       
-      WhatsNext.callRouteFromHash();
-      expect( WhatsNext.routes[route] ).toHaveBeenCalled();
+      WhatsNext.route('/posts');
+      expect( WhatsNext.Routes[route] ).toHaveBeenCalled();
     });
     
     it('passes any matched groups in the regex to the called function', function() {
       var route = '^/posts/(\\d+)/(\\w+)$';
-      spyOn(WhatsNext.routes, route);
-      window.location.hash = '#/posts/45/edit';
+      spyOn(WhatsNext.Routes, route);
       
-      WhatsNext.callRouteFromHash();
-      expect( WhatsNext.routes[route] ).toHaveBeenCalledWith('45', 'edit');
+      WhatsNext.route('/posts/45/edit');
+      expect( WhatsNext.Routes[route] ).toHaveBeenCalledWith('45', 'edit');
     });
     
-    it('redirects to "/" if no routes match the current hash', function() {
+    it('redirects to "/" if no routes match the desired path', function() {
       spyOn(WhatsNext, 'redirect');
-      window.location.hash = '#abcdefg123';
-      
-      WhatsNext.callRouteFromHash();
+
+      WhatsNext.route('abcdefg123');
       expect(WhatsNext.redirect).toHaveBeenCalledWith('/');
     });
     
     it('does NOT redirect to "/" if the current hash is "/" and no route is found', function() {
-      WhatsNext.routes = new Hash({});
+      WhatsNext.Routes = new Hash({});
       spyOn(WhatsNext, 'redirect');
-      window.location.hash = '#/';
       
-      WhatsNext.callRouteFromHash();
+      WhatsNext.route('/');
       expect(WhatsNext.redirect).not.toHaveBeenCalled();
+    });
+    
+    it('routes based on the browser’s current location hash', function() {
+      window.location.hash = '#/the/path';
+      spyOn(WhatsNext, 'route');
+      
+      WhatsNext.routeFromLocationHash();
+      expect(WhatsNext.route).toHaveBeenCalledWith('/the/path');
     });
     
   });

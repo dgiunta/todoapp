@@ -8,18 +8,21 @@ _.redirect = function(path) {
   window.location.hash = '#' + path;
 };
 
-_.callRouteFromHash = function() {
-  var path   = window.location.hash.substr(1);
-  var routes = _.routes.getKeys();
+_.route = function(path) {
+  var routes = _.Routes.getKeys();
 
   for (var i = 0; i < routes.length; i++) {
     var match = path.match( routes[i] );
     if (match) {
       _.log('ROUTE "' + path + '"  -->  "' + routes[i] + '"');
-      _.routes[ routes[i] ].apply( null, match.splice(1) );
+      _.Routes[ routes[i] ].apply( null, match.splice(1) );
       return;
     }
   };
 
   if (path != '/') _.redirect('/');
+};
+
+_.routeFromLocationHash = function() {
+  return _.route( window.location.hash.substr(1) );
 };
