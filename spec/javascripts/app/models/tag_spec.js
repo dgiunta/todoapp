@@ -15,5 +15,14 @@ describe('WhatsNext.Tag', function() {
     });
   
   });
+
+  describe('class methods', function() {
+
+    it('gets an array of all tags, which are instances of WhatsNext.Tag', function() {
+      var tags = WhatsNext.Tag.all();
+      expect( tags[0] ).toBeAnInstanceOf(WhatsNext.Tag);
+    });
+
+  });
   
 });

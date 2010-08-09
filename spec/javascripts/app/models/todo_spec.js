@@ -15,5 +15,14 @@ describe('WhatsNext.Todo', function() {
     });
   
   });
-  
+
+  describe('class methods', function() {
+
+    it('gets an array of all todos, which are instances of WhatsNext.Todo', function() {
+      var todos = WhatsNext.Todo.all();
+      expect( todos[0] ).toBeAnInstanceOf(WhatsNext.Todo);
+    });
+
+  });
+   
 });
