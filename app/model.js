@@ -1,6 +1,8 @@
 _.Model = new Class({
 
-  _attributes: {},
+  _attributes: {
+    id: null
+  },
 
   initialize: function(attributes) {
     this._createAccessors();
@@ -20,9 +22,9 @@ _.Model = new Class({
 
   _createGetter: function(attribute) {
     if ( this[attribute] ) return;
-  
+    
     this._validatePresenceOf(attribute);
-  
+    
     this[attribute] = function() {
       return this._attributes[attribute];
     }.bind(this);
@@ -31,7 +33,7 @@ _.Model = new Class({
   _createSetter: function(attribute) {
     var setter = this._setterFor(attribute);
     if ( this[setter] ) return;
-  
+    
     this[setter] = function(value) {
       this._attributes[attribute] = value;
       return this;
@@ -52,6 +54,11 @@ _.Model = new Class({
   _validatePresenceOf: function(attribute) {
     if ( !(attribute in this._attributes) )
       throw 'ArgumentError: ' + attribute + ' is not present in _attributes';
+  },
+  
+  save: function() {
+    this.setId(1);
+    return true;
   }
-
+  
 });

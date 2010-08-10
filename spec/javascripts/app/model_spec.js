@@ -14,6 +14,10 @@ describe('WhatsNext.Model', function() {
   
   describe('Getters / Setters', function() {
     
+    it('has an "id" getter by default', function() {
+      expect( fake.id() ).toBeNull();
+    });
+    
     it('creates a getter method based on keys specified in _attributes', function() {
       expect( fake.name() ).toEqual('Jim');
       expect( fake.height() ).toEqual(6.1);
@@ -31,7 +35,7 @@ describe('WhatsNext.Model', function() {
       fake.setName('Bob');
       expect( fake.name() ).toEqual('Bob');
     });
-    
+
     describe('when they already exist', function() {
       
       beforeEach( function() {
@@ -53,7 +57,7 @@ describe('WhatsNext.Model', function() {
       });
     
     });
-    
+
   });
   
   describe('when setting attributes during initialization', function() {
@@ -75,7 +79,21 @@ describe('WhatsNext.Model', function() {
         new FakeModel({ nonexistent: 'whatever' });
       }).toThrow('ArgumentError: nonexistent is not present in _attributes');
     });
-    
+
+  });
+
+  describe('when saving', function() {
+
+    it('tries to save the current state of the object', function() {
+      expect( fake.save() ).toBe(true);
+    }); 
+
+    it('sets the "id" attribute if it doesn’t already exist', function() {
+      expect( fake.id() ).toBeNull();
+      fake.save();
+      expect( fake.id() ).toBe(1);
+    }); 
+
   });
   
 });
