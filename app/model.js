@@ -57,7 +57,8 @@ _.Model = new Class({
   },
   
   save: function() {
-    this.setId(1);
+    this.setId('1a2s3d4f');
+    localStorage.setItem('WhatsNext.FakeModel#1a2s3d4f', this);
     return true;
   }
   

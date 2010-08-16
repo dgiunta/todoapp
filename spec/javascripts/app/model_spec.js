@@ -83,15 +83,23 @@ describe('WhatsNext.Model', function() {
   });
 
   describe('when saving', function() {
+    
+    beforeEach( function() {
+      todoId = '1a2s3d4f';
+    });
 
     it('tries to save the current state of the object', function() {
-      expect( fake.save() ).toBe(true);
+      spyOn(localStorage, 'setItem');
+      var result = fake.save();
+      
+      expect(localStorage.setItem).toHaveBeenCalledWith('WhatsNext.FakeModel#' + todoId, fake);
+      expect(result).toBe(true);
     }); 
 
     it('sets the "id" attribute if it doesn’t already exist', function() {
       expect( fake.id() ).toBeNull();
       fake.save();
-      expect( fake.id() ).toBe(1);
+      expect( fake.id() ).toBe(todoId);
     }); 
 
   });
