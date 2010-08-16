@@ -6,6 +6,10 @@ describe('WhatsNext.Views', function() {
       view = new WhatsNext.Views['/todos/edit']({ id: 3 });
     });
     
+    it('has an associated template', function() {
+      expect( WhatsNext.Templates['/todos/edit.html'] ).not.toBeNull();
+    });
+    
     it('has a title', function() {
       expect( view.title ).toEqual('Edit Todo');
     });
@@ -30,6 +34,10 @@ describe('WhatsNext.Views', function() {
       view = new WhatsNext.Views['/todos/index']();
     });
     
+    it('has an associated template', function() {
+      expect( WhatsNext.Templates['/todos/index.html'] ).not.toBeNull();
+    });
+    
     it('has a title', function() {
       expect( view.title ).toEqual('What&rsquo;s Next?');
     });
@@ -48,6 +56,10 @@ describe('WhatsNext.Views', function() {
       view = new WhatsNext.Views['/todos/index_filter']();
     });
     
+    it('has an associated template', function() {
+      expect( WhatsNext.Templates['/todos/index_filter.html'] ).not.toBeNull();
+    });
+    
     it('has a title', function() {
       expect( view.title ).toEqual('Filter Todos');
     });
@@ -64,6 +76,10 @@ describe('WhatsNext.Views', function() {
     
     beforeEach( function() {
       view = new WhatsNext.Views['/todos/new']();
+    });
+    
+    it('has an associated template', function() {
+      expect( WhatsNext.Templates['/todos/new.html'] ).not.toBeNull();
     });
     
     it('has a title', function() {
