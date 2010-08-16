@@ -4,8 +4,8 @@
 
     document.addEventListener('touchmove', function(e) { e.preventDefault(); });
   
-    window.addEventListener('hashchange', _.callRouteFromHash, false);
-    _.callRouteFromHash();
+    window.addEventListener('hashchange', _.routeFromLocationHash, false);
+    _.routeFromLocationHash();
   
   });
 
