@@ -1,20 +1,20 @@
-describe('WhatsNext.Routes', function() {
+describe('WillDo.Routes', function() {
   
   beforeEach( function() {
-    originalPanels = WhatsNext.Panel._panels;
-    WhatsNext.Panel._panels = [];
+    originalPanels = WillDo.Panel._panels;
+    WillDo.Panel._panels = [];
   });
   
   afterEach( function() {
-    WhatsNext.Panel._panels = originalPanels;
+    WillDo.Panel._panels = originalPanels;
   });
   
   describe('/', function() {
     
     it('redirects to /todos', function() {
-      spyOn(WhatsNext, 'redirect');
-      WhatsNext.route('/');
-      expect(WhatsNext.redirect).toHaveBeenCalledWith('/todos');
+      spyOn(WillDo, 'redirect');
+      WillDo.route('/');
+      expect(WillDo.redirect).toHaveBeenCalledWith('/todos');
     });
 
   });
@@ -22,17 +22,17 @@ describe('WhatsNext.Routes', function() {
   describe('/todos', function() {
     
     it('finds or creates a panel', function() {
-      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
-      WhatsNext.route('/todos');
-      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index');
+      spyOn(WillDo.Panel, 'findOrCreate').andCallThrough();
+      WillDo.route('/todos');
+      expect(WillDo.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index');
     });
     
     it('renders the panel', function() {
-      thePanel = new WhatsNext.Panel();
-      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      thePanel = new WillDo.Panel();
+      spyOn(WillDo.Panel, 'findOrCreate').andReturn(thePanel);
       spyOn(thePanel, 'render');
       
-      WhatsNext.route('/todos');
+      WillDo.route('/todos');
       expect(thePanel.render).toHaveBeenCalled();
     });
     
@@ -41,17 +41,17 @@ describe('WhatsNext.Routes', function() {
   describe('/todos/index_filter', function() {
     
     it('finds or creates a panel', function() {
-      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
-      WhatsNext.route('/todos/index_filter');
-      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index_filter', { bodyClass: 'slide_up' });
+      spyOn(WillDo.Panel, 'findOrCreate').andCallThrough();
+      WillDo.route('/todos/index_filter');
+      expect(WillDo.Panel.findOrCreate).toHaveBeenCalledWith('/todos/index_filter', { bodyClass: 'slide_up' });
     });
     
     it('renders the panel', function() {
-      thePanel = new WhatsNext.Panel();
-      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      thePanel = new WillDo.Panel();
+      spyOn(WillDo.Panel, 'findOrCreate').andReturn(thePanel);
       spyOn(thePanel, 'render');
       
-      WhatsNext.route('/todos/index_filter');
+      WillDo.route('/todos/index_filter');
       expect(thePanel.render).toHaveBeenCalled();
     });
     
@@ -60,17 +60,17 @@ describe('WhatsNext.Routes', function() {
   describe('/todos/new', function() {
     
     it('finds or creates a panel', function() {
-      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
-      WhatsNext.route('/todos/new');
-      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/new', { bodyClass: 'slide_up' });
+      spyOn(WillDo.Panel, 'findOrCreate').andCallThrough();
+      WillDo.route('/todos/new');
+      expect(WillDo.Panel.findOrCreate).toHaveBeenCalledWith('/todos/new', { bodyClass: 'slide_up' });
     });
     
     it('renders the panel', function() {
-      thePanel = new WhatsNext.Panel();
-      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      thePanel = new WillDo.Panel();
+      spyOn(WillDo.Panel, 'findOrCreate').andReturn(thePanel);
       spyOn(thePanel, 'render');
       
-      WhatsNext.route('/todos/new');
+      WillDo.route('/todos/new');
       expect(thePanel.render).toHaveBeenCalled();
     });
     
@@ -79,18 +79,18 @@ describe('WhatsNext.Routes', function() {
   describe('/todos/1/edit', function() {
     
     it('finds or creates a panel', function() {
-      spyOn(WhatsNext.Panel, 'findOrCreate').andCallThrough();
-      WhatsNext.route('/todos/1/edit');
-      expect(WhatsNext.Panel.findOrCreate).toHaveBeenCalledWith('/todos/edit', { bodyClass: 'slide_left' });
+      spyOn(WillDo.Panel, 'findOrCreate').andCallThrough();
+      WillDo.route('/todos/1/edit');
+      expect(WillDo.Panel.findOrCreate).toHaveBeenCalledWith('/todos/edit', { bodyClass: 'slide_left' });
     });
     
     it('unrenders and then renders the panel', function() {
-      thePanel = new WhatsNext.Panel();
-      spyOn(WhatsNext.Panel, 'findOrCreate').andReturn(thePanel);
+      thePanel = new WillDo.Panel();
+      spyOn(WillDo.Panel, 'findOrCreate').andReturn(thePanel);
       spyOn(thePanel, 'unrender').andCallThrough();
       spyOn(thePanel, 'render');
       
-      WhatsNext.route('/todos/42/edit');
+      WillDo.route('/todos/42/edit');
       expect(thePanel.unrender).toHaveBeenCalled();
       expect(thePanel.render).toHaveBeenCalledWith({ id: '42' });
     });

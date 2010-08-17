@@ -1,41 +1,41 @@
-describe('WhatsNext.Panel', function() {
+describe('WillDo.Panel', function() {
   
   beforeEach( function() {
-    originalPanels = WhatsNext.Panel._panels;
-    WhatsNext.Panel._panels = [];
+    originalPanels = WillDo.Panel._panels;
+    WillDo.Panel._panels = [];
     
-    originalTemplates = WhatsNext.Templates;
-    WhatsNext.Templates = {
+    originalTemplates = WillDo.Templates;
+    WillDo.Templates = {
       '/path.html':  '<section class="panel">Hello world!</section>',
       '/path2.html': '<section class="panel">Hello other world!</section>'
     };
 
-    originalViews = WhatsNext.Views;
-    WhatsNext.Views = $H({
+    originalViews = WillDo.Views;
+    WillDo.Views = $H({
       '/path':  new Class(),
       '/path2': new Class()
     });  
     
-    panel  = new WhatsNext.Panel('/path',  { bodyClass: 'the_body_class' });
-    panel2 = new WhatsNext.Panel('/path2', { bodyClass: 'the_other_body_class' });
+    panel  = new WillDo.Panel('/path',  { bodyClass: 'the_body_class' });
+    panel2 = new WillDo.Panel('/path2', { bodyClass: 'the_other_body_class' });
     
-    WhatsNext.Panel._firstPanelWasRendered = false;
+    WillDo.Panel._firstPanelWasRendered = false;
   });
   
   afterEach( function() {
-    WhatsNext.Panel._panels = originalPanels;
-    WhatsNext.Templates     = originalTemplates;
-    WhatsNext.Views         = originalViews;
+    WillDo.Panel._panels = originalPanels;
+    WillDo.Templates     = originalTemplates;
+    WillDo.Views         = originalViews;
   });
   
   it('is initialized with a path which dictates where to find the views and templates', function() {
-    var panel = new WhatsNext.Panel('/path/to/views/and/templates');
+    var panel = new WillDo.Panel('/path/to/views/and/templates');
     expect(panel.path).toEqual('/path/to/views/and/templates');
   });
   
   it('does NOT let you initialize with an already used path', function() {
     expect( function() {
-      new WhatsNext.Panel('/path'); 
+      new WillDo.Panel('/path'); 
     }).toThrow('Error: already initialized panel with path "/path"');
   });
   
@@ -50,20 +50,20 @@ describe('WhatsNext.Panel', function() {
       panel.renderTemplate();
   
       expect(Mustache.to_html).toHaveBeenCalledWith( 
-        WhatsNext.Templates['/path.html'], 
-        new WhatsNext.Views['/path']() 
+        WillDo.Templates['/path.html'], 
+        new WillDo.Views['/path']() 
       );
     });
 
     it('throws an error if the associated view class is NOT present', function() {
-      WhatsNext.Views = {};
+      WillDo.Views = {};
       expect( function() {
         panel.renderTemplate();
       }).toThrow('Error: could not find the view at "/path"');
     });
 
     it('throws an error if the associated template is NOT present', function() {
-      WhatsNext.Templates = {};
+      WillDo.Templates = {};
       expect( function() {
         panel.renderTemplate();
       }).toThrow('Error: could not find the template at "/path.html"');
@@ -181,12 +181,12 @@ describe('WhatsNext.Panel', function() {
   describe('self.find()', function() {
     
     it('returns an initialized panel based on the specified path', function() {
-      expect( WhatsNext.Panel.find('/path')  ).toBe(panel);
-      expect( WhatsNext.Panel.find('/path2') ).toBe(panel2);
+      expect( WillDo.Panel.find('/path')  ).toBe(panel);
+      expect( WillDo.Panel.find('/path2') ).toBe(panel2);
     });
     
     it('returns null if a panel with the specified path does NOT exist', function() {
-      expect( WhatsNext.Panel.find('/non-existant/path') ).toBeNull();
+      expect( WillDo.Panel.find('/non-existant/path') ).toBeNull();
     });
     
   });
@@ -194,17 +194,17 @@ describe('WhatsNext.Panel', function() {
   describe('self.findOrCreate()', function() {
     
     beforeEach( function() {
-      WhatsNext.Templates['/path3.html'] = '<section class="panel">Hello other world!</section>';
-      WhatsNext.Views['/path3'] = new Class();
+      WillDo.Templates['/path3.html'] = '<section class="panel">Hello other world!</section>';
+      WillDo.Views['/path3'] = new Class();
     });
     
     it('returns an already-initialized panel based on the specified path', function() {
-      expect( WhatsNext.Panel.findOrCreate('/path')  ).toBe(panel);
+      expect( WillDo.Panel.findOrCreate('/path')  ).toBe(panel);
     });
     
     it('initializes and returns a not-yet-initialized panel based on the specified path', function() {
-      var panel3 = WhatsNext.Panel.findOrCreate('/path3');
-      expect(panel3).toBeAnInstanceOf(WhatsNext.Panel);
+      var panel3 = WillDo.Panel.findOrCreate('/path3');
+      expect(panel3).toBeAnInstanceOf(WillDo.Panel);
       expect(panel3.path).toEqual('/path3');
     });
     

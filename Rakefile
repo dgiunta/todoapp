@@ -38,17 +38,17 @@ namespace :build do
   
   desc 'Build the app JS'
   task :app do
-    File.open "#{ ROOT }/public/javascripts/whats_next.js", "w" do |file| 
+    File.open "#{ ROOT }/public/javascripts/will_do.js", "w" do |file| 
       contents = Dir["#{ ROOT }/app/**/*.js"].sort.inject('') do |str, path|
         str << ( "\n\n" + File.read(path) )
       end
       file.write <<-JS
       
-if ( !$defined(WhatsNext) ) var WhatsNext = {};
+if ( !$defined(WillDo) ) var WillDo = {};
 
 (function(_) {
   #{ contents }
-})(WhatsNext);
+})(WillDo);
 
       JS
     end
@@ -88,7 +88,7 @@ if ( !$defined(WhatsNext) ) var WhatsNext = {};
         hash[key] = File.read path
         hash
       end
-      file.write "WhatsNext.Templates = #{ templates.to_json };"
+      file.write "WillDo.Templates = #{ templates.to_json };"
     end
     done 'Built the templates.'
   end
@@ -106,5 +106,5 @@ end
 
 desc 'Deploy the app'
 task :deploy do
-  system %| git push; ssh dreamhost 'cd ~/whats_next && git pull && rake build' |
+  system %| git push; ssh dreamhost 'cd ~/will_do && git pull && rake build' |
 end

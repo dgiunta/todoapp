@@ -1,9 +1,9 @@
-describe('WhatsNext.Tag', function() {
+describe('WillDo.Tag', function() {
   
   describe('attributes', function() {
     
     beforeEach( function() {
-      tag = new WhatsNext.Tag();
+      tag = new WillDo.Tag();
     });
   
     it('has an id attribute', function() {
@@ -18,9 +18,9 @@ describe('WhatsNext.Tag', function() {
 
   describe('class methods', function() {
 
-    it('gets an array of all tags, which are instances of WhatsNext.Tag', function() {
-      var tags = WhatsNext.Tag.all();
-      expect( tags[0] ).toBeAnInstanceOf(WhatsNext.Tag);
+    it('gets an array of all tags, which are instances of WillDo.Tag', function() {
+      var tags = WillDo.Tag.all();
+      expect( tags[0] ).toBeAnInstanceOf(WillDo.Tag);
     });
 
   });

@@ -6,7 +6,7 @@ _.Views = $H({
       return _.Tag.all();
     },
 
-    title: 'Edit Todo',
+    title: 'Soon I Will&hellip;',
   
     todo: function() {
       return _.Todo.find(this.options.id);
@@ -16,7 +16,7 @@ _.Views = $H({
 
   '/todos/index': new Class({
   
-    title: 'What&rsquo;s Next?',
+    title: 'Will Do!',
   
     todos: function() {
       var todos = _.Todo.all();
@@ -42,7 +42,7 @@ _.Views = $H({
       return _.Tag.all();
     },
 
-    title: 'New Todo'
+    title: 'Soon I Will&hellip;'
   
   })
 

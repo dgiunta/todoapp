@@ -1,8 +1,8 @@
-describe('WhatsNext.Model', function() {
+describe('WillDo.Model', function() {
   
   beforeEach( function() {
     FakeModel = new Class({
-      Implements: [ WhatsNext.Model ],
+      Implements: [ WillDo.Model ],
       _attributes: {
         name: 'Jim',
         height: 6.1
@@ -92,7 +92,7 @@ describe('WhatsNext.Model', function() {
       spyOn(localStorage, 'setItem');
       var result = fake.save();
       
-      expect(localStorage.setItem).toHaveBeenCalledWith('WhatsNext.FakeModel#' + todoId, fake);
+      expect(localStorage.setItem).toHaveBeenCalledWith('WillDo.FakeModel#' + todoId, fake);
       expect(result).toBe(true);
     }); 
 
