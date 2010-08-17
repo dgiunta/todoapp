@@ -7,9 +7,14 @@ describe('WillDo base functionality', function() {
     });
     
     it('logs to the console', function() {
+      var original = WillDo.logging;
+      WillDo.logging = true;
+      
       spyOn(console, 'log');
       WillDo.log('Hello!');
       expect(console.log).toHaveBeenCalledWith('Hello!');
+      
+      WillDo.logging = original;
     });
     
     it('does NOT log when logging has been disabled', function() {
