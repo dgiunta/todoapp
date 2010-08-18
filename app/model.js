@@ -3,7 +3,7 @@ _.Model = new Class({
   _attributes: {
     id: null
   },
-
+  
   initialize: function(attributes) {
     this._createAccessors();
     this._setAttributes(attributes);
@@ -58,7 +58,7 @@ _.Model = new Class({
   
   save: function() {
     this.setId('1a2s3d4f');
-    localStorage.setItem('WillDo.FakeModel#1a2s3d4f', this);
+    localStorage.setItem( this.constructor.toString() + '#1a2s3d4f', this );
     return true;
   }
   

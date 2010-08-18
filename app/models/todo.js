@@ -56,6 +56,10 @@ $extend(_.Todo, {
   find: function(id) {
     var todo = this.all()[id];
     return todo;
+  },
+  
+  toString: function() {
+    return 'WillDo.Todo';
   }
   
 });

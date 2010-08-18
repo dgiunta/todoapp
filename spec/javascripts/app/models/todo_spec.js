@@ -18,6 +18,10 @@ describe('WillDo.Todo', function() {
 
   describe('class methods', function() {
 
+    it('gets the name of class', function() {
+      expect( WillDo.Todo.toString() ).toBe('WillDo.Todo');
+    });
+
     it('gets an array of all todos, which are instances of WillDo.Todo', function() {
       var todos = WillDo.Todo.all();
       expect( todos[0] ).toBeAnInstanceOf(WillDo.Todo);

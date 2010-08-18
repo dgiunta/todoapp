@@ -1,6 +1,8 @@
 describe('WillDo.Model', function() {
   
   beforeEach( function() {
+    localStorage.clear();
+    
     FakeModel = new Class({
       Implements: [ WillDo.Model ],
       _attributes: {
@@ -8,6 +10,10 @@ describe('WillDo.Model', function() {
         height: 6.1
       }
     });
+    
+    FakeModel.toString = function() {
+      return 'FakeModel';
+    };
 
     fake = new FakeModel();
   });
@@ -81,6 +87,14 @@ describe('WillDo.Model', function() {
     });
 
   });
+  
+  describe('when coercing', function() {
+    
+    xit('can coerce to JSON', function() {
+      
+    });
+    
+  });
 
   describe('when saving', function() {
     
@@ -88,11 +102,14 @@ describe('WillDo.Model', function() {
       todoId = '1a2s3d4f';
     });
 
-    it('tries to save the current state of the object', function() {
+    it('saves the current state of the object', function() {
+      spyOn(FakeModel, 'toString').andReturn('TheFakeModelName');      
       spyOn(localStorage, 'setItem');
+      
       var result = fake.save();
       
-      expect(localStorage.setItem).toHaveBeenCalledWith('WillDo.FakeModel#' + todoId, fake);
+      expect(FakeModel.toString).toHaveBeenCalled();
+      expect(localStorage.setItem).toHaveBeenCalledWith('TheFakeModelName#' + todoId, fake);
       expect(result).toBe(true);
     }); 
 

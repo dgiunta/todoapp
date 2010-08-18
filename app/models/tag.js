@@ -30,6 +30,10 @@ $extend(_.Tag, {
     }.bind(this));
 
     return tags;
+  },
+  
+  toString: function() {
+    return 'WillDo.Tag';
   }
   
 });

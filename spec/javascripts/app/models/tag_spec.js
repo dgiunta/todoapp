@@ -17,6 +17,10 @@ describe('WillDo.Tag', function() {
   });
 
   describe('class methods', function() {
+    
+    it('gets the name of class', function() {
+      expect( WillDo.Tag.toString() ).toBe('WillDo.Tag');
+    });
 
     it('gets an array of all tags, which are instances of WillDo.Tag', function() {
       var tags = WillDo.Tag.all();
