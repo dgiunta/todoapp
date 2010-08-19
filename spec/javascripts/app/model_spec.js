@@ -90,8 +90,8 @@ describe('WillDo.Model', function() {
   
   describe('when coercing', function() {
     
-    xit('can coerce to JSON', function() {
-      
+    it('produces JSON from the attributes', function() {
+      expect( fake.toJSON() ).toBe('{"id":null,"name":"Jim","height":6.1}');
     });
     
   });
@@ -103,14 +103,16 @@ describe('WillDo.Model', function() {
     });
 
     it('saves the current state of the object', function() {
-      spyOn(FakeModel, 'toString').andReturn('TheFakeModelName');      
       spyOn(localStorage, 'setItem');
+      spyOn(FakeModel, 'toString').andReturn('TheFakeModelName');
+      spyOn(fake, 'toJSON').andReturn('{"key":"val"}');
       
       var result = fake.save();
-      
-      expect(FakeModel.toString).toHaveBeenCalled();
-      expect(localStorage.setItem).toHaveBeenCalledWith('TheFakeModelName#' + todoId, fake);
       expect(result).toBe(true);
+      
+      expect(fake.toJSON).toHaveBeenCalled();
+      expect(FakeModel.toString).toHaveBeenCalled();
+      expect(localStorage.setItem).toHaveBeenCalledWith('TheFakeModelName#' + todoId, '{"key":"val"}');
     }); 
 
     it('sets the "id" attribute if it doesn’t already exist', function() {

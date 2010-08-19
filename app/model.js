@@ -58,8 +58,12 @@ _.Model = new Class({
   
   save: function() {
     this.setId('1a2s3d4f');
-    localStorage.setItem( this.constructor.toString() + '#1a2s3d4f', this );
+    localStorage.setItem( this.constructor.toString() + '#1a2s3d4f', this.toJSON() );
     return true;
+  },
+  
+  toJSON: function() {
+    return JSON.encode( $H(this._attributes) );
   }
   
 });
