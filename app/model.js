@@ -40,6 +40,11 @@ _.Model = new Class({
     }.bind(this);
   },
 
+  _generateId: function() {
+    var json = this.toJSON();
+    return SHA1("blob " + json.length + "\0" + json);
+  },
+  
   _setAttributes: function(attributes) {
     $H(attributes).each( function(value, attribute) {
       this[ this._setterFor(attribute) ](value);
@@ -51,14 +56,23 @@ _.Model = new Class({
     return 'set' + attribute.charAt(0).toUpperCase() + attribute.slice(1);
   },
 
+  _storageKey: function() {
+    if (this.id() === null)
+      throw 'Error: the storage key requires an id to already exist';
+    
+    return this.constructor.toString() + '.find("' + this.id() + '")';
+  },
+  
   _validatePresenceOf: function(attribute) {
     if ( !(attribute in this._attributes) )
       throw 'ArgumentError: ' + attribute + ' is not present in _attributes';
   },
   
   save: function() {
-    this.setId('1a2s3d4f');
-    localStorage.setItem( this.constructor.toString() + '#1a2s3d4f', this.toJSON() );
+    if (this.id() === null)
+      this.setId( this._generateId() );
+    
+    localStorage.setItem( this._storageKey(), this.toJSON() );
     return true;
   },
   

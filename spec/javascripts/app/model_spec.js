@@ -90,35 +90,75 @@ describe('WillDo.Model', function() {
   
   describe('when coercing', function() {
     
+    it('produces a key to be used specifically for storage', function() {
+      spyOn(FakeModel, 'toString').andReturn('TheFakeModelName');
+      spyOn(fake, 'id').andReturn('q1w2e3r4');
+      
+      expect( fake._storageKey() ).toBe('TheFakeModelName.find("q1w2e3r4")');
+    });
+    
+    it('throws an error when there is no id for the storage key to use', function() {
+      expect( function() {
+        fake._storageKey();
+      }).toThrow('Error: the storage key requires an id to already exist');
+    });
+    
     it('produces JSON from the attributes', function() {
       expect( fake.toJSON() ).toBe('{"id":null,"name":"Jim","height":6.1}');
+    });
+    
+    xit('uses the JSON when coercing to a string', function() {
+      spyOn(fake, 'toJSON').andReturn('{"key":"val"}');
+      expect( fake.toString() ).toBe('{"key":"val"}');
     });
     
   });
 
   describe('when saving', function() {
     
-    beforeEach( function() {
-      todoId = '1a2s3d4f';
+    it('generates an id to use', function() {
+      spyOn(window, 'SHA1').andReturn('q1w2e3r4');
+      spyOn(fake, 'toJSON').andReturn('The-JSON-Data');
+      
+      var id = fake._generateId();
+      
+      expect(id).toBe('q1w2e3r4');
+      expect(window.SHA1).toHaveBeenCalledWith("blob 13\0The-JSON-Data");
+      expect(fake.toJSON).toHaveBeenCalled();
     });
+    
+    it('sets the "id" attribute when it doesn’t already exist', function() {
+      expect( fake.id() ).toBe(null);
+      
+      spyOn(fake, '_generateId').andReturn('r4t5y6u7');
+      spyOn(fake, 'setId').andCallThrough();
+      
+      fake.save();
+      
+      expect(fake._generateId).toHaveBeenCalled();
+      expect(fake.setId).toHaveBeenCalledWith('r4t5y6u7');
+    }); 
 
+    it('does NOT set the "id" attribute when it already exists', function() {
+      spyOn(fake, 'id').andReturn('e3r4t5y6');
+      spyOn(fake, 'setId').andCallThrough();
+      
+      fake.save();
+      
+      expect(fake.setId).not.toHaveBeenCalled();
+    });
+    
     it('saves the current state of the object', function() {
       spyOn(localStorage, 'setItem');
-      spyOn(FakeModel, 'toString').andReturn('TheFakeModelName');
-      spyOn(fake, 'toJSON').andReturn('{"key":"val"}');
+      spyOn(fake, '_storageKey').andReturn('The-Storage-Key');
+      spyOn(fake, 'toJSON').andReturn('The-JSON-Data');
       
       var result = fake.save();
       expect(result).toBe(true);
       
       expect(fake.toJSON).toHaveBeenCalled();
-      expect(FakeModel.toString).toHaveBeenCalled();
-      expect(localStorage.setItem).toHaveBeenCalledWith('TheFakeModelName#' + todoId, '{"key":"val"}');
-    }); 
-
-    it('sets the "id" attribute if it doesn’t already exist', function() {
-      expect( fake.id() ).toBeNull();
-      fake.save();
-      expect( fake.id() ).toBe(todoId);
+      expect(fake._storageKey).toHaveBeenCalled();
+      expect(localStorage.setItem).toHaveBeenCalledWith('The-Storage-Key', 'The-JSON-Data');
     }); 
 
   });
